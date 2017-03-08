@@ -1,0 +1,2375 @@
+[
+   {
+      "screeningTime" : 1366501500,
+      "screen" : "3",
+      "scFilmId" : 0,
+      "screeningId" : 0,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1367019900,
+      "screen" : "1",
+      "scFilmId" : 0,
+      "screeningId" : 1,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1366992000,
+      "screen" : "3",
+      "scFilmId" : 1,
+      "screeningId" : 2,
+      "duration" : 117
+   },
+   {
+      "screeningTime" : 1367149500,
+      "screen" : "3",
+      "scFilmId" : 1,
+      "screeningId" : 3,
+      "duration" : 117
+   },
+   {
+      "screeningTime" : 1365801300,
+      "screen" : "1",
+      "scFilmId" : 2,
+      "screeningId" : 4,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366044300,
+      "screen" : "3",
+      "scFilmId" : 2,
+      "screeningId" : 5,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1365947400,
+      "screen" : "3",
+      "scFilmId" : 3,
+      "screeningId" : 6,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366820400,
+      "screen" : "3",
+      "scFilmId" : 3,
+      "screeningId" : 7,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366053000,
+      "screen" : "3",
+      "scFilmId" : 4,
+      "screeningId" : 8,
+      "duration" : 99
+   },
+   {
+      "screeningTime" : 1366322400,
+      "screen" : "3",
+      "scFilmId" : 4,
+      "screeningId" : 9,
+      "duration" : 99
+   },
+   {
+      "screeningTime" : 1366822800,
+      "screen" : "4",
+      "scFilmId" : 5,
+      "screeningId" : 10,
+      "duration" : 79
+   },
+   {
+      "screeningTime" : 1367071200,
+      "screen" : "4",
+      "scFilmId" : 5,
+      "screeningId" : 11,
+      "duration" : 79
+   },
+   {
+      "screeningTime" : 1365870600,
+      "screen" : "3",
+      "scFilmId" : 6,
+      "screeningId" : 12,
+      "duration" : 103
+   },
+   {
+      "screeningTime" : 1366648800,
+      "screen" : "3",
+      "scFilmId" : 6,
+      "screeningId" : 13,
+      "duration" : 103
+   },
+   {
+      "screeningTime" : 1366047000,
+      "screen" : "2",
+      "scFilmId" : 7,
+      "screeningId" : 14,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1366302900,
+      "screen" : "2",
+      "scFilmId" : 7,
+      "screeningId" : 15,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1365965100,
+      "screen" : "2",
+      "scFilmId" : 8,
+      "screeningId" : 16,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366137900,
+      "screen" : "5",
+      "scFilmId" : 8,
+      "screeningId" : 17,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366571400,
+      "screen" : "3",
+      "scFilmId" : 9,
+      "screeningId" : 18,
+      "duration" : 105
+   },
+   {
+      "screeningTime" : 1366982100,
+      "screen" : "3",
+      "scFilmId" : 9,
+      "screeningId" : 19,
+      "duration" : 105
+   },
+   {
+      "screeningTime" : 1365868200,
+      "screen" : "1",
+      "scFilmId" : 10,
+      "screeningId" : 20,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366045800,
+      "screen" : "1",
+      "scFilmId" : 10,
+      "screeningId" : 21,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366837800,
+      "screen" : "1",
+      "scFilmId" : 11,
+      "screeningId" : 22,
+      "duration" : 75
+   },
+   {
+      "screeningTime" : 1366994700,
+      "screen" : "1",
+      "scFilmId" : 11,
+      "screeningId" : 23,
+      "duration" : 75
+   },
+   {
+      "screeningTime" : 1365775800,
+      "screen" : "5",
+      "scFilmId" : 12,
+      "screeningId" : 24,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1366053600,
+      "screen" : "4",
+      "scFilmId" : 12,
+      "screeningId" : 25,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1366477800,
+      "screen" : "4",
+      "scFilmId" : 13,
+      "screeningId" : 26,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1366570800,
+      "screen" : "5",
+      "scFilmId" : 13,
+      "screeningId" : 27,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1365708600,
+      "screen" : "1",
+      "scFilmId" : 14,
+      "screeningId" : 28,
+      "duration" : 101
+   },
+   {
+      "screeningTime" : 1365709500,
+      "screen" : "3",
+      "scFilmId" : 14,
+      "screeningId" : 29,
+      "duration" : 101
+   },
+   {
+      "screeningTime" : 1366415100,
+      "screen" : "1",
+      "scFilmId" : 15,
+      "screeningId" : 30,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1366927200,
+      "screen" : "1",
+      "scFilmId" : 15,
+      "screeningId" : 31,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1366926600,
+      "screen" : "2",
+      "scFilmId" : 16,
+      "screeningId" : 32,
+      "duration" : 86
+   },
+   {
+      "screeningTime" : 1367099100,
+      "screen" : "3",
+      "scFilmId" : 16,
+      "screeningId" : 33,
+      "duration" : 86
+   },
+   {
+      "screeningTime" : 1366917300,
+      "screen" : "4",
+      "scFilmId" : 17,
+      "screeningId" : 34,
+      "duration" : 70
+   },
+   {
+      "screeningTime" : 1366484400,
+      "screen" : "5",
+      "scFilmId" : 18,
+      "screeningId" : 35,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1366561800,
+      "screen" : "1",
+      "scFilmId" : 18,
+      "screeningId" : 36,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1366139700,
+      "screen" : "1",
+      "scFilmId" : 19,
+      "screeningId" : 37,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366579800,
+      "screen" : "1",
+      "scFilmId" : 19,
+      "screeningId" : 38,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1365957900,
+      "screen" : "1",
+      "scFilmId" : 20,
+      "screeningId" : 39,
+      "duration" : 101
+   },
+   {
+      "screeningTime" : 1366388400,
+      "screen" : "1",
+      "scFilmId" : 20,
+      "screeningId" : 40,
+      "duration" : 101
+   },
+   {
+      "screeningTime" : 1366409700,
+      "screen" : "5",
+      "scFilmId" : 21,
+      "screeningId" : 41,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1365974400,
+      "screen" : "4",
+      "scFilmId" : 22,
+      "screeningId" : 42,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1366549200,
+      "screen" : "4",
+      "scFilmId" : 22,
+      "screeningId" : 43,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1366926600,
+      "screen" : "5",
+      "scFilmId" : 23,
+      "screeningId" : 44,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1366986600,
+      "screen" : "5",
+      "scFilmId" : 23,
+      "screeningId" : 45,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1367004000,
+      "screen" : "4",
+      "scFilmId" : 24,
+      "screeningId" : 46,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1367069400,
+      "screen" : "2",
+      "scFilmId" : 24,
+      "screeningId" : 47,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366735800,
+      "screen" : "4",
+      "scFilmId" : 25,
+      "screeningId" : 48,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1366926000,
+      "screen" : "4",
+      "scFilmId" : 25,
+      "screeningId" : 49,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1365784200,
+      "screen" : "3",
+      "scFilmId" : 26,
+      "screeningId" : 50,
+      "duration" : 83
+   },
+   {
+      "screeningTime" : 1366045500,
+      "screen" : "5",
+      "scFilmId" : 26,
+      "screeningId" : 51,
+      "duration" : 83
+   },
+   {
+      "screeningTime" : 1365776100,
+      "screen" : "3",
+      "scFilmId" : 27,
+      "screeningId" : 52,
+      "duration" : 62
+   },
+   {
+      "screeningTime" : 1366912800,
+      "screen" : "5",
+      "scFilmId" : 27,
+      "screeningId" : 53,
+      "duration" : 62
+   },
+   {
+      "screeningTime" : 1366742700,
+      "screen" : "1",
+      "scFilmId" : 28,
+      "screeningId" : 54,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1365895800,
+      "screen" : "1",
+      "scFilmId" : 29,
+      "screeningId" : 55,
+      "duration" : 83
+   },
+   {
+      "screeningTime" : 1365870000,
+      "screen" : "5",
+      "scFilmId" : 30,
+      "screeningId" : 56,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366147800,
+      "screen" : "5",
+      "scFilmId" : 30,
+      "screeningId" : 57,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366234800,
+      "screen" : "1",
+      "scFilmId" : 31,
+      "screeningId" : 58,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366491600,
+      "screen" : "1",
+      "scFilmId" : 31,
+      "screeningId" : 59,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1367012700,
+      "screen" : "2",
+      "scFilmId" : 32,
+      "screeningId" : 60,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1367097300,
+      "screen" : "5",
+      "scFilmId" : 32,
+      "screeningId" : 61,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1366666200,
+      "screen" : "5",
+      "scFilmId" : 33,
+      "screeningId" : 62,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1366981200,
+      "screen" : "4",
+      "scFilmId" : 33,
+      "screeningId" : 63,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1365861600,
+      "screen" : "5",
+      "scFilmId" : 34,
+      "screeningId" : 64,
+      "duration" : 110
+   },
+   {
+      "screeningTime" : 1366218000,
+      "screen" : "2",
+      "scFilmId" : 34,
+      "screeningId" : 65,
+      "duration" : 110
+   },
+   {
+      "screeningTime" : 1366485300,
+      "screen" : "1",
+      "scFilmId" : 35,
+      "screeningId" : 66,
+      "duration" : 76
+   },
+   {
+      "screeningTime" : 1367174700,
+      "screen" : "1",
+      "scFilmId" : 35,
+      "screeningId" : 67,
+      "duration" : 76
+   },
+   {
+      "screeningTime" : 1365777000,
+      "screen" : "4",
+      "scFilmId" : 36,
+      "screeningId" : 68,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366217100,
+      "screen" : "4",
+      "scFilmId" : 36,
+      "screeningId" : 69,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366737300,
+      "screen" : "5",
+      "scFilmId" : 37,
+      "screeningId" : 70,
+      "duration" : 75
+   },
+   {
+      "screeningTime" : 1367163900,
+      "screen" : "5",
+      "scFilmId" : 37,
+      "screeningId" : 71,
+      "duration" : 75
+   },
+   {
+      "screeningTime" : 1365798600,
+      "screen" : "2",
+      "scFilmId" : 38,
+      "screeningId" : 72,
+      "duration" : 120
+   },
+   {
+      "screeningTime" : 1366233600,
+      "screen" : "5",
+      "scFilmId" : 38,
+      "screeningId" : 73,
+      "duration" : 120
+   },
+   {
+      "screeningTime" : 1366754100,
+      "screen" : "1",
+      "scFilmId" : 39,
+      "screeningId" : 74,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367074800,
+      "screen" : "1",
+      "scFilmId" : 39,
+      "screeningId" : 75,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366461900,
+      "screen" : "5",
+      "scFilmId" : 40,
+      "screeningId" : 76,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1366980300,
+      "screen" : "2",
+      "scFilmId" : 40,
+      "screeningId" : 77,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1366295400,
+      "screen" : "1",
+      "scFilmId" : 41,
+      "screeningId" : 78,
+      "duration" : 112
+   },
+   {
+      "screeningTime" : 1366819800,
+      "screen" : "1",
+      "scFilmId" : 41,
+      "screeningId" : 79,
+      "duration" : 112
+   },
+   {
+      "screeningTime" : 1367165700,
+      "screen" : "1",
+      "scFilmId" : 41,
+      "screeningId" : 80,
+      "duration" : 112
+   },
+   {
+      "screeningTime" : 1366060200,
+      "screen" : "5",
+      "scFilmId" : 42,
+      "screeningId" : 81,
+      "duration" : 112
+   },
+   {
+      "screeningTime" : 1366302600,
+      "screen" : "5",
+      "scFilmId" : 42,
+      "screeningId" : 82,
+      "duration" : 112
+   },
+   {
+      "screeningTime" : 1366494300,
+      "screen" : "5",
+      "scFilmId" : 43,
+      "screeningId" : 83,
+      "duration" : 111
+   },
+   {
+      "screeningTime" : 1366838100,
+      "screen" : "5",
+      "scFilmId" : 43,
+      "screeningId" : 84,
+      "duration" : 111
+   },
+   {
+      "screeningTime" : 1365940800,
+      "screen" : "3",
+      "scFilmId" : 44,
+      "screeningId" : 85,
+      "duration" : 81
+   },
+   {
+      "screeningTime" : 1365803100,
+      "screen" : "5",
+      "scFilmId" : 45,
+      "screeningId" : 86,
+      "duration" : 81
+   },
+   {
+      "screeningTime" : 1366052400,
+      "screen" : "5",
+      "scFilmId" : 45,
+      "screeningId" : 87,
+      "duration" : 81
+   },
+   {
+      "screeningTime" : 1367013000,
+      "screen" : "1",
+      "scFilmId" : 46,
+      "screeningId" : 88,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1367181000,
+      "screen" : "1",
+      "scFilmId" : 46,
+      "screeningId" : 89,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1366839300,
+      "screen" : "2",
+      "scFilmId" : 47,
+      "screeningId" : 90,
+      "duration" : 98
+   },
+   {
+      "screeningTime" : 1367097600,
+      "screen" : "4",
+      "scFilmId" : 47,
+      "screeningId" : 91,
+      "duration" : 98
+   },
+   {
+      "screeningTime" : 1365966000,
+      "screen" : "3",
+      "scFilmId" : 48,
+      "screeningId" : 92,
+      "duration" : 112
+   },
+   {
+      "screeningTime" : 1367086500,
+      "screen" : "4",
+      "scFilmId" : 49,
+      "screeningId" : 93,
+      "duration" : 104
+   },
+   {
+      "screeningTime" : 1367170200,
+      "screen" : "5",
+      "scFilmId" : 49,
+      "screeningId" : 94,
+      "duration" : 104
+   },
+   {
+      "screeningTime" : 1365801600,
+      "screen" : "4",
+      "scFilmId" : 50,
+      "screeningId" : 95,
+      "duration" : 97
+   },
+   {
+      "screeningTime" : 1365966900,
+      "screen" : "4",
+      "scFilmId" : 50,
+      "screeningId" : 96,
+      "duration" : 97
+   },
+   {
+      "screeningTime" : 1365793200,
+      "screen" : "5",
+      "scFilmId" : 51,
+      "screeningId" : 97,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1366829100,
+      "screen" : "1",
+      "scFilmId" : 52,
+      "screeningId" : 98,
+      "duration" : 116
+   },
+   {
+      "screeningTime" : 1365809400,
+      "screen" : "3",
+      "scFilmId" : 53,
+      "screeningId" : 99,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366840800,
+      "screen" : "3",
+      "scFilmId" : 53,
+      "screeningId" : 100,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366131600,
+      "screen" : "1",
+      "scFilmId" : 54,
+      "screeningId" : 101,
+      "duration" : 98
+   },
+   {
+      "screeningTime" : 1366380900,
+      "screen" : "2",
+      "scFilmId" : 54,
+      "screeningId" : 102,
+      "duration" : 98
+   },
+   {
+      "screeningTime" : 1366987500,
+      "screen" : "1",
+      "scFilmId" : 55,
+      "screeningId" : 103,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1367184000,
+      "screen" : "2",
+      "scFilmId" : 55,
+      "screeningId" : 104,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1366310700,
+      "screen" : "5",
+      "scFilmId" : 56,
+      "screeningId" : 105,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366463700,
+      "screen" : "2",
+      "scFilmId" : 56,
+      "screeningId" : 106,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366387200,
+      "screen" : "3",
+      "scFilmId" : 57,
+      "screeningId" : 107,
+      "duration" : 118
+   },
+   {
+      "screeningTime" : 1366579500,
+      "screen" : "3",
+      "scFilmId" : 57,
+      "screeningId" : 108,
+      "duration" : 118
+   },
+   {
+      "screeningTime" : 1366667100,
+      "screen" : "2",
+      "scFilmId" : 58,
+      "screeningId" : 109,
+      "duration" : 120
+   },
+   {
+      "screeningTime" : 1367013600,
+      "screen" : "4",
+      "scFilmId" : 58,
+      "screeningId" : 110,
+      "duration" : 120
+   },
+   {
+      "screeningTime" : 1367011800,
+      "screen" : "3",
+      "scFilmId" : 59,
+      "screeningId" : 111,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1367087400,
+      "screen" : "2",
+      "scFilmId" : 59,
+      "screeningId" : 112,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366226100,
+      "screen" : "4",
+      "scFilmId" : 60,
+      "screeningId" : 113,
+      "duration" : 94
+   },
+   {
+      "screeningTime" : 1366840200,
+      "screen" : "4",
+      "scFilmId" : 60,
+      "screeningId" : 114,
+      "duration" : 94
+   },
+   {
+      "screeningTime" : 1366147500,
+      "screen" : "3",
+      "scFilmId" : 61,
+      "screeningId" : 115,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366657800,
+      "screen" : "3",
+      "scFilmId" : 61,
+      "screeningId" : 116,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366312500,
+      "screen" : "3",
+      "scFilmId" : 62,
+      "screeningId" : 117,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366462800,
+      "screen" : "3",
+      "scFilmId" : 62,
+      "screeningId" : 118,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367085600,
+      "screen" : "5",
+      "scFilmId" : 63,
+      "screeningId" : 119,
+      "duration" : 108
+   },
+   {
+      "screeningTime" : 1367152200,
+      "screen" : "5",
+      "scFilmId" : 63,
+      "screeningId" : 120,
+      "duration" : 108
+   },
+   {
+      "screeningTime" : 1366321800,
+      "screen" : "4",
+      "scFilmId" : 64,
+      "screeningId" : 121,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1366569000,
+      "screen" : "4",
+      "scFilmId" : 64,
+      "screeningId" : 122,
+      "duration" : 91
+   },
+   {
+      "screeningTime" : 1366906500,
+      "screen" : "4",
+      "scFilmId" : 65,
+      "screeningId" : 123,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1367078400,
+      "screen" : "4",
+      "scFilmId" : 65,
+      "screeningId" : 124,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1366829100,
+      "screen" : "2",
+      "scFilmId" : 66,
+      "screeningId" : 125,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1366916400,
+      "screen" : "2",
+      "scFilmId" : 66,
+      "screeningId" : 126,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1366744500,
+      "screen" : "2",
+      "scFilmId" : 67,
+      "screeningId" : 127,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1366828200,
+      "screen" : "5",
+      "scFilmId" : 67,
+      "screeningId" : 128,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1366296300,
+      "screen" : "3",
+      "scFilmId" : 68,
+      "screeningId" : 129,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1365875100,
+      "screen" : "2",
+      "scFilmId" : 69,
+      "screeningId" : 130,
+      "duration" : 45
+   },
+   {
+      "screeningTime" : 1366455600,
+      "screen" : "4",
+      "scFilmId" : 70,
+      "screeningId" : 131,
+      "duration" : 92
+   },
+   {
+      "screeningTime" : 1366665600,
+      "screen" : "1",
+      "scFilmId" : 70,
+      "screeningId" : 132,
+      "duration" : 92
+   },
+   {
+      "screeningTime" : 1365952500,
+      "screen" : "2",
+      "scFilmId" : 71,
+      "screeningId" : 133,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1366562400,
+      "screen" : "5",
+      "scFilmId" : 71,
+      "screeningId" : 134,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1366407300,
+      "screen" : "1",
+      "scFilmId" : 72,
+      "screeningId" : 135,
+      "duration" : 76
+   },
+   {
+      "screeningTime" : 1366925400,
+      "screen" : "3",
+      "scFilmId" : 73,
+      "screeningId" : 136,
+      "duration" : 115
+   },
+   {
+      "screeningTime" : 1367175600,
+      "screen" : "3",
+      "scFilmId" : 73,
+      "screeningId" : 137,
+      "duration" : 115
+   },
+   {
+      "screeningTime" : 1366492800,
+      "screen" : "3",
+      "scFilmId" : 74,
+      "screeningId" : 138,
+      "duration" : 122
+   },
+   {
+      "screeningTime" : 1366665300,
+      "screen" : "3",
+      "scFilmId" : 74,
+      "screeningId" : 139,
+      "duration" : 122
+   },
+   {
+      "screeningTime" : 1365794100,
+      "screen" : "4",
+      "scFilmId" : 75,
+      "screeningId" : 140,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366560900,
+      "screen" : "4",
+      "scFilmId" : 75,
+      "screeningId" : 141,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366548600,
+      "screen" : "1",
+      "scFilmId" : 76,
+      "screeningId" : 142,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366735500,
+      "screen" : "1",
+      "scFilmId" : 76,
+      "screeningId" : 143,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367091000,
+      "screen" : "1",
+      "scFilmId" : 77,
+      "screeningId" : 144,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366224300,
+      "screen" : "5",
+      "scFilmId" : 78,
+      "screeningId" : 145,
+      "duration" : 127
+   },
+   {
+      "screeningTime" : 1366734600,
+      "screen" : "2",
+      "scFilmId" : 78,
+      "screeningId" : 146,
+      "duration" : 127
+   },
+   {
+      "screeningTime" : 1366053300,
+      "screen" : "1",
+      "scFilmId" : 79,
+      "screeningId" : 147,
+      "duration" : 105
+   },
+   {
+      "screeningTime" : 1366571700,
+      "screen" : "1",
+      "scFilmId" : 79,
+      "screeningId" : 148,
+      "duration" : 105
+   },
+   {
+      "screeningTime" : 1365975300,
+      "screen" : "2",
+      "scFilmId" : 80,
+      "screeningId" : 149,
+      "duration" : 106
+   },
+   {
+      "screeningTime" : 1367060400,
+      "screen" : "3",
+      "scFilmId" : 80,
+      "screeningId" : 150,
+      "duration" : 106
+   },
+   {
+      "screeningTime" : 1366398900,
+      "screen" : "5",
+      "scFilmId" : 81,
+      "screeningId" : 151,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366557300,
+      "screen" : "2",
+      "scFilmId" : 81,
+      "screeningId" : 152,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366233000,
+      "screen" : "3",
+      "scFilmId" : 82,
+      "screeningId" : 153,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366753500,
+      "screen" : "3",
+      "scFilmId" : 82,
+      "screeningId" : 154,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366304400,
+      "screen" : "3",
+      "scFilmId" : 83,
+      "screeningId" : 155,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366564200,
+      "screen" : "3",
+      "scFilmId" : 83,
+      "screeningId" : 156,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1365944400,
+      "screen" : "4",
+      "scFilmId" : 84,
+      "screeningId" : 157,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366554900,
+      "screen" : "5",
+      "scFilmId" : 84,
+      "screeningId" : 158,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366322100,
+      "screen" : "1",
+      "scFilmId" : 85,
+      "screeningId" : 159,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367101800,
+      "screen" : "1",
+      "scFilmId" : 85,
+      "screeningId" : 160,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367077800,
+      "screen" : "3",
+      "scFilmId" : 86,
+      "screeningId" : 161,
+      "duration" : 122
+   },
+   {
+      "screeningTime" : 1367165100,
+      "screen" : "3",
+      "scFilmId" : 86,
+      "screeningId" : 162,
+      "duration" : 122
+   },
+   {
+      "screeningTime" : 1365943500,
+      "screen" : "5",
+      "scFilmId" : 87,
+      "screeningId" : 163,
+      "duration" : 67
+   },
+   {
+      "screeningTime" : 1366226400,
+      "screen" : "2",
+      "scFilmId" : 87,
+      "screeningId" : 164,
+      "duration" : 67
+   },
+   {
+      "screeningTime" : 1366542000,
+      "screen" : "1",
+      "scFilmId" : 88,
+      "screeningId" : 165,
+      "duration" : 81
+   },
+   {
+      "screeningTime" : 1366907400,
+      "screen" : "1",
+      "scFilmId" : 88,
+      "screeningId" : 166,
+      "duration" : 81
+   },
+   {
+      "screeningTime" : 1366405200,
+      "screen" : "4",
+      "scFilmId" : 89,
+      "screeningId" : 167,
+      "duration" : 128
+   },
+   {
+      "screeningTime" : 1366753800,
+      "screen" : "5",
+      "scFilmId" : 89,
+      "screeningId" : 168,
+      "duration" : 128
+   },
+   {
+      "screeningTime" : 1367002800,
+      "screen" : "1",
+      "scFilmId" : 90,
+      "screeningId" : 169,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366045200,
+      "screen" : "4",
+      "scFilmId" : 91,
+      "screeningId" : 170,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1366387800,
+      "screen" : "4",
+      "scFilmId" : 91,
+      "screeningId" : 171,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1366547400,
+      "screen" : "2",
+      "scFilmId" : 92,
+      "screeningId" : 172,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366995600,
+      "screen" : "2",
+      "scFilmId" : 92,
+      "screeningId" : 173,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1365878700,
+      "screen" : "3",
+      "scFilmId" : 93,
+      "screeningId" : 174,
+      "duration" : 118
+   },
+   {
+      "screeningTime" : 1366130700,
+      "screen" : "3",
+      "scFilmId" : 93,
+      "screeningId" : 175,
+      "duration" : 118
+   },
+   {
+      "screeningTime" : 1366303500,
+      "screen" : "1",
+      "scFilmId" : 94,
+      "screeningId" : 176,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1367158200,
+      "screen" : "1",
+      "scFilmId" : 94,
+      "screeningId" : 177,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1365862800,
+      "screen" : "3",
+      "scFilmId" : 95,
+      "screeningId" : 178,
+      "duration" : 72
+   },
+   {
+      "screeningTime" : 1366381800,
+      "screen" : "5",
+      "scFilmId" : 95,
+      "screeningId" : 179,
+      "duration" : 72
+   },
+   {
+      "screeningTime" : 1365852600,
+      "screen" : "1",
+      "scFilmId" : 96,
+      "screeningId" : 180,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366062300,
+      "screen" : "2",
+      "scFilmId" : 96,
+      "screeningId" : 181,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366397100,
+      "screen" : "4",
+      "scFilmId" : 97,
+      "screeningId" : 182,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366470000,
+      "screen" : "4",
+      "scFilmId" : 97,
+      "screeningId" : 183,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366734000,
+      "screen" : "3",
+      "scFilmId" : 98,
+      "screeningId" : 184,
+      "duration" : 126
+   },
+   {
+      "screeningTime" : 1367068500,
+      "screen" : "3",
+      "scFilmId" : 98,
+      "screeningId" : 185,
+      "duration" : 126
+   },
+   {
+      "screeningTime" : 1366456800,
+      "screen" : "1",
+      "scFilmId" : 99,
+      "screeningId" : 186,
+      "duration" : 76
+   },
+   {
+      "screeningTime" : 1366754100,
+      "screen" : "2",
+      "scFilmId" : 99,
+      "screeningId" : 187,
+      "duration" : 76
+   },
+   {
+      "screeningTime" : 1365783300,
+      "screen" : "1",
+      "scFilmId" : 100,
+      "screeningId" : 188,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1365950700,
+      "screen" : "1",
+      "scFilmId" : 100,
+      "screeningId" : 189,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1365883200,
+      "screen" : "4",
+      "scFilmId" : 101,
+      "screeningId" : 190,
+      "duration" : 168
+   },
+   {
+      "screeningTime" : 1366578000,
+      "screen" : "2",
+      "scFilmId" : 101,
+      "screeningId" : 191,
+      "duration" : 168
+   },
+   {
+      "screeningTime" : 1365786000,
+      "screen" : "4",
+      "scFilmId" : 102,
+      "screeningId" : 192,
+      "duration" : 50
+   },
+   {
+      "screeningTime" : 1365775200,
+      "screen" : "2",
+      "scFilmId" : 103,
+      "screeningId" : 193,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1365975600,
+      "screen" : "3",
+      "scFilmId" : 103,
+      "screeningId" : 194,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1366462800,
+      "screen" : "4",
+      "scFilmId" : 104,
+      "screeningId" : 195,
+      "duration" : 92
+   },
+   {
+      "screeningTime" : 1366988400,
+      "screen" : "4",
+      "scFilmId" : 104,
+      "screeningId" : 196,
+      "duration" : 92
+   },
+   {
+      "screeningTime" : 1366407000,
+      "screen" : "2",
+      "scFilmId" : 105,
+      "screeningId" : 197,
+      "duration" : 125
+   },
+   {
+      "screeningTime" : 1366470900,
+      "screen" : "5",
+      "scFilmId" : 105,
+      "screeningId" : 198,
+      "duration" : 125
+   },
+   {
+      "screeningTime" : 1365791400,
+      "screen" : "1",
+      "scFilmId" : 106,
+      "screeningId" : 199,
+      "duration" : 70
+   },
+   {
+      "screeningTime" : 1366493400,
+      "screen" : "2",
+      "scFilmId" : 106,
+      "screeningId" : 200,
+      "duration" : 70
+   },
+   {
+      "screeningTime" : 1366216200,
+      "screen" : "5",
+      "scFilmId" : 107,
+      "screeningId" : 201,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1367063100,
+      "screen" : "4",
+      "scFilmId" : 107,
+      "screeningId" : 202,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1365890400,
+      "screen" : "2",
+      "scFilmId" : 108,
+      "screeningId" : 203,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1366235100,
+      "screen" : "2",
+      "scFilmId" : 108,
+      "screeningId" : 204,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1365853500,
+      "screen" : "5",
+      "scFilmId" : 109,
+      "screeningId" : 205,
+      "duration" : 101
+   },
+   {
+      "screeningTime" : 1365973200,
+      "screen" : "5",
+      "scFilmId" : 109,
+      "screeningId" : 206,
+      "duration" : 101
+   },
+   {
+      "screeningTime" : 1365854400,
+      "screen" : "3",
+      "scFilmId" : 110,
+      "screeningId" : 207,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1366140600,
+      "screen" : "3",
+      "scFilmId" : 110,
+      "screeningId" : 208,
+      "duration" : 84
+   },
+   {
+      "screeningTime" : 1366743600,
+      "screen" : "5",
+      "scFilmId" : 111,
+      "screeningId" : 209,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1365881400,
+      "screen" : "2",
+      "scFilmId" : 112,
+      "screeningId" : 210,
+      "duration" : 83
+   },
+   {
+      "screeningTime" : 1365954300,
+      "screen" : "5",
+      "scFilmId" : 112,
+      "screeningId" : 211,
+      "duration" : 83
+   },
+   {
+      "screeningTime" : 1366311600,
+      "screen" : "1",
+      "scFilmId" : 113,
+      "screeningId" : 212,
+      "duration" : 140
+   },
+   {
+      "screeningTime" : 1366309800,
+      "screen" : "2",
+      "scFilmId" : 114,
+      "screeningId" : 213,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1366138800,
+      "screen" : "2",
+      "scFilmId" : 115,
+      "screeningId" : 214,
+      "duration" : 65
+   },
+   {
+      "screeningTime" : 1365966000,
+      "screen" : "1",
+      "scFilmId" : 116,
+      "screeningId" : 215,
+      "duration" : 73
+   },
+   {
+      "screeningTime" : 1365775200,
+      "screen" : "1",
+      "scFilmId" : 117,
+      "screeningId" : 216,
+      "duration" : 58
+   },
+   {
+      "screeningTime" : 1367164800,
+      "screen" : "2",
+      "scFilmId" : 118,
+      "screeningId" : 217,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1366830900,
+      "screen" : "3",
+      "scFilmId" : 119,
+      "screeningId" : 218,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1365876000,
+      "screen" : "1",
+      "scFilmId" : 120,
+      "screeningId" : 219,
+      "duration" : 94
+   },
+   {
+      "screeningTime" : 1366568100,
+      "screen" : "2",
+      "scFilmId" : 121,
+      "screeningId" : 220,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366650600,
+      "screen" : "2",
+      "scFilmId" : 122,
+      "screeningId" : 221,
+      "duration" : 68
+   },
+   {
+      "screeningTime" : 1366659000,
+      "screen" : "2",
+      "scFilmId" : 123,
+      "screeningId" : 222,
+      "duration" : 60
+   },
+   {
+      "screeningTime" : 1367001000,
+      "screen" : "3",
+      "scFilmId" : 124,
+      "screeningId" : 223,
+      "duration" : 105
+   },
+   {
+      "screeningTime" : 1365792300,
+      "screen" : "3",
+      "scFilmId" : 125,
+      "screeningId" : 224,
+      "duration" : 86
+   },
+   {
+      "screeningTime" : 1366396200,
+      "screen" : "2",
+      "scFilmId" : 126,
+      "screeningId" : 225,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1365955200,
+      "screen" : "3",
+      "scFilmId" : 127,
+      "screeningId" : 226,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1366054200,
+      "screen" : "2",
+      "scFilmId" : 128,
+      "screeningId" : 227,
+      "duration" : 60
+   },
+   {
+      "screeningTime" : 1365885900,
+      "screen" : "1",
+      "scFilmId" : 129,
+      "screeningId" : 228,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366225200,
+      "screen" : "1",
+      "scFilmId" : 130,
+      "screeningId" : 229,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366743600,
+      "screen" : "3",
+      "scFilmId" : 131,
+      "screeningId" : 230,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366483500,
+      "screen" : "2",
+      "scFilmId" : 132,
+      "screeningId" : 231,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1366753500,
+      "screen" : "4",
+      "scFilmId" : 133,
+      "screeningId" : 232,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366996200,
+      "screen" : "4",
+      "scFilmId" : 133,
+      "screeningId" : 233,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1365785400,
+      "screen" : "5",
+      "scFilmId" : 134,
+      "screeningId" : 234,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1366456200,
+      "screen" : "3",
+      "scFilmId" : 134,
+      "screeningId" : 235,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1366312200,
+      "screen" : "4",
+      "scFilmId" : 135,
+      "screeningId" : 236,
+      "duration" : 130
+   },
+   {
+      "screeningTime" : 1366408200,
+      "screen" : "3",
+      "scFilmId" : 136,
+      "screeningId" : 237,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1366472700,
+      "screen" : "3",
+      "scFilmId" : 136,
+      "screeningId" : 238,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1365964200,
+      "screen" : "5",
+      "scFilmId" : 137,
+      "screeningId" : 239,
+      "duration" : 107
+   },
+   {
+      "screeningTime" : 1366320600,
+      "screen" : "5",
+      "scFilmId" : 137,
+      "screeningId" : 240,
+      "duration" : 107
+   },
+   {
+      "screeningTime" : 1365879600,
+      "screen" : "5",
+      "scFilmId" : 138,
+      "screeningId" : 241,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1365942600,
+      "screen" : "2",
+      "scFilmId" : 138,
+      "screeningId" : 242,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1367001900,
+      "screen" : "5",
+      "scFilmId" : 139,
+      "screeningId" : 243,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367154900,
+      "screen" : "2",
+      "scFilmId" : 139,
+      "screeningId" : 244,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367003400,
+      "screen" : "2",
+      "scFilmId" : 140,
+      "screeningId" : 245,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1367074800,
+      "screen" : "5",
+      "scFilmId" : 140,
+      "screeningId" : 246,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1365856200,
+      "screen" : "4",
+      "scFilmId" : 141,
+      "screeningId" : 247,
+      "duration" : 88
+   },
+   {
+      "screeningTime" : 1366234200,
+      "screen" : "4",
+      "scFilmId" : 141,
+      "screeningId" : 248,
+      "duration" : 88
+   },
+   {
+      "screeningTime" : 1366455600,
+      "screen" : "5",
+      "scFilmId" : 142,
+      "screeningId" : 249,
+      "duration" : 76
+   },
+   {
+      "screeningTime" : 1366907400,
+      "screen" : "3",
+      "scFilmId" : 143,
+      "screeningId" : 250,
+      "duration" : 105
+   },
+   {
+      "screeningTime" : 1367184600,
+      "screen" : "3",
+      "scFilmId" : 143,
+      "screeningId" : 251,
+      "duration" : 105
+   },
+   {
+      "screeningTime" : 1366577100,
+      "screen" : "4",
+      "scFilmId" : 144,
+      "screeningId" : 252,
+      "duration" : 115
+   },
+   {
+      "screeningTime" : 1367154000,
+      "screen" : "4",
+      "scFilmId" : 144,
+      "screeningId" : 253,
+      "duration" : 115
+   },
+   {
+      "screeningTime" : 1365887700,
+      "screen" : "3",
+      "scFilmId" : 145,
+      "screeningId" : 254,
+      "duration" : 88
+   },
+   {
+      "screeningTime" : 1365802200,
+      "screen" : "3",
+      "scFilmId" : 146,
+      "screeningId" : 255,
+      "duration" : 89
+   },
+   {
+      "screeningTime" : 1366216800,
+      "screen" : "3",
+      "scFilmId" : 146,
+      "screeningId" : 256,
+      "duration" : 89
+   },
+   {
+      "screeningTime" : 1366993800,
+      "screen" : "5",
+      "scFilmId" : 147,
+      "screeningId" : 257,
+      "duration" : 104
+   },
+   {
+      "screeningTime" : 1367181000,
+      "screen" : "5",
+      "scFilmId" : 147,
+      "screeningId" : 258,
+      "duration" : 104
+   },
+   {
+      "screeningTime" : 1366129800,
+      "screen" : "5",
+      "scFilmId" : 148,
+      "screeningId" : 259,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1366580100,
+      "screen" : "5",
+      "scFilmId" : 148,
+      "screeningId" : 260,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1366650000,
+      "screen" : "5",
+      "scFilmId" : 149,
+      "screeningId" : 261,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1367062200,
+      "screen" : "2",
+      "scFilmId" : 149,
+      "screeningId" : 262,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1366061400,
+      "screen" : "1",
+      "scFilmId" : 150,
+      "screeningId" : 263,
+      "duration" : 120
+   },
+   {
+      "screeningTime" : 1367082000,
+      "screen" : "1",
+      "scFilmId" : 150,
+      "screeningId" : 264,
+      "duration" : 120
+   },
+   {
+      "screeningTime" : 1366147800,
+      "screen" : "4",
+      "scFilmId" : 151,
+      "screeningId" : 265,
+      "duration" : 116
+   },
+   {
+      "screeningTime" : 1367012100,
+      "screen" : "5",
+      "scFilmId" : 151,
+      "screeningId" : 266,
+      "duration" : 116
+   },
+   {
+      "screeningTime" : 1366656000,
+      "screen" : "1",
+      "scFilmId" : 152,
+      "screeningId" : 267,
+      "duration" : 128
+   },
+   {
+      "screeningTime" : 1366917600,
+      "screen" : "1",
+      "scFilmId" : 152,
+      "screeningId" : 268,
+      "duration" : 128
+   },
+   {
+      "screeningTime" : 1366305300,
+      "screen" : "4",
+      "scFilmId" : 153,
+      "screeningId" : 269,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1366487100,
+      "screen" : "4",
+      "scFilmId" : 153,
+      "screeningId" : 270,
+      "duration" : 87
+   },
+   {
+      "screeningTime" : 1365872400,
+      "screen" : "4",
+      "scFilmId" : 154,
+      "screeningId" : 271,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366378200,
+      "screen" : "4",
+      "scFilmId" : 154,
+      "screeningId" : 272,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366906200,
+      "screen" : "5",
+      "scFilmId" : 155,
+      "screeningId" : 273,
+      "duration" : 83
+   },
+   {
+      "screeningTime" : 1367061000,
+      "screen" : "5",
+      "scFilmId" : 155,
+      "screeningId" : 274,
+      "duration" : 83
+   },
+   {
+      "screeningTime" : 1366389000,
+      "screen" : "2",
+      "scFilmId" : 156,
+      "screeningId" : 275,
+      "duration" : 72
+   },
+   {
+      "screeningTime" : 1366542000,
+      "screen" : "2",
+      "scFilmId" : 156,
+      "screeningId" : 276,
+      "duration" : 72
+   },
+   {
+      "screeningTime" : 1365941700,
+      "screen" : "1",
+      "scFilmId" : 157,
+      "screeningId" : 277,
+      "duration" : 77
+   },
+   {
+      "screeningTime" : 1366473600,
+      "screen" : "2",
+      "scFilmId" : 157,
+      "screeningId" : 278,
+      "duration" : 77
+   },
+   {
+      "screeningTime" : 1365863400,
+      "screen" : "4",
+      "scFilmId" : 158,
+      "screeningId" : 279,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1365867000,
+      "screen" : "2",
+      "scFilmId" : 159,
+      "screeningId" : 280,
+      "duration" : 89
+   },
+   {
+      "screeningTime" : 1365850800,
+      "screen" : "2",
+      "scFilmId" : 160,
+      "screeningId" : 281,
+      "duration" : 64
+   },
+   {
+      "screeningTime" : 1366060500,
+      "screen" : "4",
+      "scFilmId" : 161,
+      "screeningId" : 282,
+      "duration" : 65
+   },
+   {
+      "screeningTime" : 1366832700,
+      "screen" : "4",
+      "scFilmId" : 161,
+      "screeningId" : 283,
+      "duration" : 65
+   },
+   {
+      "screeningTime" : 1366648200,
+      "screen" : "4",
+      "scFilmId" : 162,
+      "screeningId" : 284,
+      "duration" : 128
+   },
+   {
+      "screeningTime" : 1367172900,
+      "screen" : "4",
+      "scFilmId" : 162,
+      "screeningId" : 285,
+      "duration" : 128
+   },
+   {
+      "screeningTime" : 1366320000,
+      "screen" : "2",
+      "scFilmId" : 163,
+      "screeningId" : 286,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366464600,
+      "screen" : "1",
+      "scFilmId" : 163,
+      "screeningId" : 287,
+      "duration" : 102
+   },
+   {
+      "screeningTime" : 1366743600,
+      "screen" : "4",
+      "scFilmId" : 164,
+      "screeningId" : 288,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366657200,
+      "screen" : "4",
+      "scFilmId" : 165,
+      "screeningId" : 289,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1367182800,
+      "screen" : "4",
+      "scFilmId" : 165,
+      "screeningId" : 290,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366389600,
+      "screen" : "5",
+      "scFilmId" : 166,
+      "screeningId" : 291,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1366494600,
+      "screen" : "4",
+      "scFilmId" : 166,
+      "screeningId" : 292,
+      "duration" : 80
+   },
+   {
+      "screeningTime" : 1366147500,
+      "screen" : "1",
+      "scFilmId" : 167,
+      "screeningId" : 293,
+      "duration" : 71
+   },
+   {
+      "screeningTime" : 1366555500,
+      "screen" : "1",
+      "scFilmId" : 167,
+      "screeningId" : 294,
+      "duration" : 71
+   },
+   {
+      "screeningTime" : 1366649100,
+      "screen" : "1",
+      "scFilmId" : 168,
+      "screeningId" : 295,
+      "duration" : 81
+   },
+   {
+      "screeningTime" : 1367068200,
+      "screen" : "1",
+      "scFilmId" : 168,
+      "screeningId" : 296,
+      "duration" : 81
+   },
+   {
+      "screeningTime" : 1366918200,
+      "screen" : "5",
+      "scFilmId" : 169,
+      "screeningId" : 297,
+      "duration" : 66
+   },
+   {
+      "screeningTime" : 1367079000,
+      "screen" : "2",
+      "scFilmId" : 169,
+      "screeningId" : 298,
+      "duration" : 66
+   },
+   {
+      "screeningTime" : 1365956100,
+      "screen" : "4",
+      "scFilmId" : 170,
+      "screeningId" : 299,
+      "duration" : 88
+   },
+   {
+      "screeningTime" : 1366128900,
+      "screen" : "4",
+      "scFilmId" : 170,
+      "screeningId" : 300,
+      "duration" : 88
+   },
+   {
+      "screeningTime" : 1366136100,
+      "screen" : "4",
+      "scFilmId" : 171,
+      "screeningId" : 301,
+      "duration" : 160
+   },
+   {
+      "screeningTime" : 1366375200,
+      "screen" : "3",
+      "scFilmId" : 171,
+      "screeningId" : 302,
+      "duration" : 160
+   },
+   {
+      "screeningTime" : 1366915500,
+      "screen" : "3",
+      "scFilmId" : 172,
+      "screeningId" : 303,
+      "duration" : 94
+   },
+   {
+      "screeningTime" : 1367089200,
+      "screen" : "3",
+      "scFilmId" : 172,
+      "screeningId" : 304,
+      "duration" : 94
+   },
+   {
+      "screeningTime" : 1366398000,
+      "screen" : "1",
+      "scFilmId" : 173,
+      "screeningId" : 305,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366475400,
+      "screen" : "1",
+      "scFilmId" : 173,
+      "screeningId" : 306,
+      "duration" : 90
+   },
+   {
+      "screeningTime" : 1366225200,
+      "screen" : "3",
+      "scFilmId" : 174,
+      "screeningId" : 307,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366555500,
+      "screen" : "3",
+      "scFilmId" : 174,
+      "screeningId" : 308,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1365889500,
+      "screen" : "5",
+      "scFilmId" : 175,
+      "screeningId" : 309,
+      "duration" : 110
+   },
+   {
+      "screeningTime" : 1366060800,
+      "screen" : "3",
+      "scFilmId" : 175,
+      "screeningId" : 310,
+      "duration" : 110
+   },
+   {
+      "screeningTime" : 1366819200,
+      "screen" : "2",
+      "scFilmId" : 176,
+      "screeningId" : 311,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1366905600,
+      "screen" : "2",
+      "scFilmId" : 176,
+      "screeningId" : 312,
+      "duration" : 85
+   },
+   {
+      "screeningTime" : 1365859800,
+      "screen" : "1",
+      "scFilmId" : 177,
+      "screeningId" : 313,
+      "duration" : 108
+   },
+   {
+      "screeningTime" : 1366217400,
+      "screen" : "1",
+      "scFilmId" : 177,
+      "screeningId" : 314,
+      "duration" : 108
+   },
+   {
+      "screeningTime" : 1365782400,
+      "screen" : "2",
+      "scFilmId" : 178,
+      "screeningId" : 315,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366380000,
+      "screen" : "1",
+      "scFilmId" : 178,
+      "screeningId" : 316,
+      "duration" : 100
+   },
+   {
+      "screeningTime" : 1366545600,
+      "screen" : "5",
+      "scFilmId" : 179,
+      "screeningId" : 317,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366656900,
+      "screen" : "5",
+      "scFilmId" : 179,
+      "screeningId" : 318,
+      "duration" : 82
+   },
+   {
+      "screeningTime" : 1366821000,
+      "screen" : "5",
+      "scFilmId" : 180,
+      "screeningId" : 319,
+      "duration" : 98
+   },
+   {
+      "screeningTime" : 1367098200,
+      "screen" : "2",
+      "scFilmId" : 180,
+      "screeningId" : 320,
+      "duration" : 98
+   },
+   {
+      "screeningTime" : 1366398000,
+      "screen" : "3",
+      "scFilmId" : 181,
+      "screeningId" : 321,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366482600,
+      "screen" : "3",
+      "scFilmId" : 181,
+      "screeningId" : 322,
+      "duration" : 93
+   },
+   {
+      "screeningTime" : 1366132500,
+      "screen" : "2",
+      "scFilmId" : 182,
+      "screeningId" : 323,
+      "duration" : 78
+   },
+   {
+      "screeningTime" : 1366542900,
+      "screen" : "4",
+      "scFilmId" : 182,
+      "screeningId" : 324,
+      "duration" : 78
+   },
+   {
+      "screeningTime" : 1366148700,
+      "screen" : "2",
+      "scFilmId" : 183,
+      "screeningId" : 325,
+      "duration" : 104
+   },
+   {
+      "screeningTime" : 1366455600,
+      "screen" : "2",
+      "scFilmId" : 183,
+      "screeningId" : 326,
+      "duration" : 104
+   },
+   {
+      "screeningTime" : 1367060400,
+      "screen" : "1",
+      "scFilmId" : 184,
+      "screeningId" : 327,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1367150400,
+      "screen" : "1",
+      "scFilmId" : 184,
+      "screeningId" : 328,
+      "duration" : 96
+   },
+   {
+      "screeningTime" : 1365789600,
+      "screen" : "2",
+      "scFilmId" : 185,
+      "screeningId" : 329,
+      "duration" : 115
+   },
+   {
+      "screeningTime" : 1365975000,
+      "screen" : "1",
+      "scFilmId" : 185,
+      "screeningId" : 330,
+      "duration" : 115
+   },
+   {
+      "screeningTime" : 1366664400,
+      "screen" : "4",
+      "scFilmId" : 186,
+      "screeningId" : 331,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1367163000,
+      "screen" : "4",
+      "scFilmId" : 186,
+      "screeningId" : 332,
+      "duration" : 113
+   },
+   {
+      "screeningTime" : 1365858000,
+      "screen" : "2",
+      "scFilmId" : 187,
+      "screeningId" : 333,
+      "duration" : 78
+   },
+   {
+      "screeningTime" : 1367067600,
+      "screen" : "5",
+      "scFilmId" : 187,
+      "screeningId" : 334,
+      "duration" : 78
+   },
+   {
+      "screeningTime" : 1366987200,
+      "screen" : "2",
+      "scFilmId" : 188,
+      "screeningId" : 335,
+      "duration" : 110
+   },
+   {
+      "screeningTime" : 1367175600,
+      "screen" : "2",
+      "scFilmId" : 188,
+      "screeningId" : 336,
+      "duration" : 110
+   },
+   {
+      "screeningTime" : 1366542000,
+      "screen" : "3",
+      "scFilmId" : 189,
+      "screeningId" : 337,
+      "duration" : 95
+   },
+   {
+      "screeningTime" : 1367157600,
+      "screen" : "3",
+      "scFilmId" : 189,
+      "screeningId" : 338,
+      "duration" : 95
+   }
+]
