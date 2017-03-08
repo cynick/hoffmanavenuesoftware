@@ -1,0 +1,56 @@
+:set +s
+:set +t
+:set -W
+:set -XOverloadedStrings
+:set editor ec
+:set prompt "λ: "
+:def! . readFile
+:def! g (\_ -> return ":. .ghci\n")
+
+:set -Wall
+
+import qualified Data.List as DL
+import Data.List.Split
+import qualified Data.ByteString.Lazy as L
+import qualified Data.ByteString as B
+import qualified Data.ByteString.Char8 as B8
+import qualified Data.Map.Strict as M
+import Data.Word
+import Text.Printf
+import Data.Either
+import Data.Text.Read
+import Data.Text
+import Data.Time
+import Data.Maybe
+import Hakyll
+import qualified Hakyll as H
+import Network.HTTP.Client
+import Text.HTML.TagSoup
+
+ts@(UTCTime d dt) <- getCurrentTime
+
+s <- DL.sort <$> loadScreenings
+
+let w = Schedule s
+f <- loadFilms
+let catalog = f
+let (f0:f1:f2:f3:f4:f5:f6:f7:f8:f9:_) = f
+let (s0:s1:s2:s3:s4:s5:s6:s7:s8:s9:_) = s
+let (sc1:sc2:sc3:_) = DL.take 3 $ viewableSchedulesFor w (DL.take 20 f)
+let p = mapM_ print
+
+run = hakyll . match "posts/*"
+
+:def! ra (\_ -> return ":set -w\n:l test/unit/Runner.hs\nrun")
+
+:def! Ra (\_ -> return ":ra")
+
+:def! rd (\t -> (return (":def! r (\\_ -> return (\":rt " ++ t ++ "\"))")))
+
+:def! R (\_ -> return ":set -w\n:r\n:g\n")
+
+:def! rt (\_ -> return (":l src/test.hs\nrunTestTT tests"))
+
+:def! b (\_ -> return (":l src/main.hs\n:set args build\nmain"))
+:def! rb (\_ -> return (":l src/main.hs\n:set args rebuild\nmain"))
+
