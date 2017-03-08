@@ -21,6 +21,7 @@ executable site
                   , blaze-markup
                   , split
                   , parsec
+                  , haskell-src-exts
                   , contravariant
                   , array
   ghc-options:

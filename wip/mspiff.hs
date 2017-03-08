@@ -15,42 +15,42 @@ import System.Environment
 
 type FilmId = Int
 type ScreeningId = Int
-type Title = T.Text 
+type Title = T.Text
 type Showtime = Int
 type Duration = Int
 type Screen = T.Text
 
-data Film = Film 
+data Film = Film
   { filmId :: FilmId
   , filmTitle :: Title
    --  ... other attributes as they become interesting.
-  } 
+  }
   deriving (Eq,Show)
 
-instance FromJSON Film where 
-  parseJSON (Object v) = 
+instance FromJSON Film where
+  parseJSON (Object v) =
     Film <$>
       v .: "filmId" <*>
       v .: "filmTitle"
 
   parseJSON _ = error "invalid film json"
 
-data Screening = Screening 
+data Screening = Screening
   { scFilmId :: FilmId
   , screeningId :: ScreeningId
   , showtime :: Showtime
   , duration :: Duration
-  } 
+  }
   deriving (Eq, Show)
 
 instance Ord Screening where
   compare a b = showtime a `compare` showtime b
-  
-instance FromJSON Screening where 
-  parseJSON (Object v) = 
+
+instance FromJSON Screening where
+  parseJSON (Object v) =
     Screening <$>
       v .: "scFilmId" <*>
-      v .: "screeningId" <*>      
+      v .: "screeningId" <*>
       v .: "screeningTime" <*> -- seconds since Epoch
       ((60*) <$> v .: "duration" ) -- duration is given in minutes
   parseJSON _ = error "invalid screening json"
@@ -65,12 +65,13 @@ load :: FromJSON a => FilePath -> IO a
 load path = do
   putStrLn $ "Loading " ++ path
   raw <- BS.readFile path
-  case decode raw of 
-    Just r -> case fromJSON r of
-                Success a -> do
-                     putStrLn $ "Finished loading " ++ path
-                     return a
-                Error s   -> error s
+  case decode raw of
+    Just r ->
+      case fromJSON r of
+        Success a -> do
+          putStrLn $ "Finished loading " ++ path
+          return a
+        Error s -> error s
     Nothing -> error "Failed to parse"
 
 newtype Schedule = Schedule { scheduleScreenings :: [Screening] }
@@ -81,7 +82,7 @@ type ViewableSchedule = Schedule
 type Catalog = [Film]
 
 viewableSchedulesFor :: WholeSchedule -> [Film] -> [ViewableSchedule]
-viewableSchedulesFor ws films = 
+viewableSchedulesFor ws films =
   map Schedule .
   filter disjoint .
   sequence $ screeningListsFor ws films
@@ -91,13 +92,13 @@ filmsInSchedule cat (Schedule s) =
   catMaybes $ flip lookup fps <$> (scFilmId <$> s)
     where
       fps = zip (filmId <$> cat) cat
-    
+
 filmsNotInSchedule :: Catalog -> ViewableSchedule -> [Film]
 filmsNotInSchedule cat vs = cat \\ (filmsInSchedule cat vs)
 
 filmMissedBy :: WholeSchedule -> ViewableSchedule -> Film -> Bool
 filmMissedBy ws (Schedule vs) film = all (not . disjoint) $ augmentedSchedules
-  where 
+  where
     augmentedSchedules = (:vs) `map` screeningsFor ws film
 
 filmsMissedBy :: Catalog -> WholeSchedule -> ViewableSchedule -> [Film]

@@ -9,15 +9,15 @@ title: Analyzing the Minneapolis/St. Paul International Film Festival
 
 I am a big fan of the Minneapolis/Saint Paul International Film
 Festival.
-For the past 17 years, I've purchased a Gold Pass and tried to 
+For the past 17 years, I've purchased a Gold Pass and tried to
 see as many films as I could.
 MSPIFF is very large, and it keeps getting bigger.
 
 Typically, at any time during the festival, there are films
 running on five screens at the same time.
-The interesting twist is that most films usually have two screenings, 
+The interesting twist is that most films usually have two screenings,
 which provides quite a bit of combinatorial complexity.
-If each film screens twice, there are 2^(number of films) ways to 
+If each film screens twice, there are 2^(number of films) ways to
 see all of the films, a very large number indeed!
 
 Now, while some people decide on all the films they want to see and obtain
@@ -34,12 +34,12 @@ I have to choose one. <br>
 One or more of the films I do *not* choose
 might still be interesting to me, so, for those films, I have to
 lookup the *other* time they may be showing, and then for each of
-those screenings, look at what films are showing at the same time, 
+those screenings, look at what films are showing at the same time,
 and figure out what other times *those* films are screening.
 
 After about three levels of this, the decision tree overflows the
 tiny L1 cache of my brain.
-And year after year, I inevitably get to the end of the festival 
+And year after year, I inevitably get to the end of the festival
 only to realize that I had missed some film that I had particularily
 wanted to see.
 
@@ -48,9 +48,9 @@ I needed some software to help me tame this decision tree!
 I wanted two features:<br>
 a) For a given (potentially large) list of films, calculate
 all of the possible schedules wherein I could see all of those films
-in sequence
-and 
-b) For each of the schedules provided by a), show me which films 
+in sequence<br>
+and<br>
+b) For each of the schedules provided by a), show me which films
 I would *miss* by choosing that schedule.
 
 
@@ -66,22 +66,23 @@ type Showtime = Int
 type Duration = Int
 data Screen = Text
 
-data Film = Film 
+data Film = Film
   { filmId :: FilmId
   , filmTitle :: Title
    --  ... other attributes as they become interesting.
-  } 
+  }
   deriving (Eq,Show)
 
-data Screening = Screening 
+data Screening = Screening
   { scFilmId :: FilmId
   , showtime :: Showtime
   , duration :: Duration
   , screen   :: Screen
-  } 
+  }
   deriving (Eq, Show)
 
-newtype Schedule = Schedule { scheduleScreenings :: [Screening] } deriving Show
+newtype Schedule = Schedule { scheduleScreenings :: [Screening] }
+  deriving (Eq, Show)
 
 type WholeSchedule = Schedule
 type ViewableSchedule = Schedule
@@ -90,7 +91,7 @@ type Catalog = [Film]
 
 A <code>Schedule</code> is simply a list of <code>Screening</code>s.
 
-A <code>WholeSchedule</code> will contain the schedule for every single 
+A <code>WholeSchedule</code> will contain the schedule for every single
 screening in the festival; a <code>ViewableSchedule</code> will contain a
 sequence of screenings that does not overlap.<br>
 A Catalog represents all of the films that are screening in the festival.
@@ -99,7 +100,7 @@ and <code>loadSchedule :: IO WholeSchedule</code>
 are available.
 
 Our first goal is to write a function that, given a
-<code>WholeSchedule</code>, and a list of <code>Film</code>, 
+<code>WholeSchedule</code>, and a list of <code>Film</code>,
 we get a list of all of the possible ways to see all of the given films.
 
 ``` haskell
