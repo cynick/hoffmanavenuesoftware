@@ -4,7 +4,7 @@ date: 2013-12-10 09:48:35+00:00
 layout: post
 link: http://hoffmanavenuesoftware.com/analyzing-mspiff
 slug: analyzing-mspiff
-title: Analyzing the Minneapolis/St. Paul International Film Festival
+title: Taming the Minneapolis/St. Paul International Film Festival
 ---
 
 I am a big fan of the Minneapolis/Saint Paul International Film
@@ -13,11 +13,15 @@ For the past 17 years, I've purchased a Gold Pass and tried to
 see as many films as I could.
 MSPIFF is very large, and it keeps getting bigger.
 
-Typically, at any time during the festival, there are films
-running on five screens at the same time.
+And as it grows, it gets more complex.
+As opposed to smaller festivals that only have a single screen, 
+and therefore a person of stamina could see every film, 
+MSPIFF typically has films running on five screens at the same time, 
+meaning that super-consumer has to make choices.
+
 The interesting twist is that most films usually have two screenings,
-which provides quite a bit of combinatorial complexity.
-If each film screens twice, there are 2^(number of films) ways to
+which provides an exponential number of ways to see the films.
+Ie., if each film screens twice, there are 2^(number of films) ways to
 see all of the films, a very large number indeed!
 
 Now, while some people decide on all the films they want to see and obtain

@@ -11,6 +11,7 @@
 
 import qualified Data.List as DL
 import Data.List.Split
+import qualified Data.List.Split as DL
 import qualified Data.ByteString.Lazy as L
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as B8
@@ -32,14 +33,34 @@ ts@(UTCTime d dt) <- getCurrentTime
 s <- DL.sort <$> loadScreenings
 
 let w = Schedule s
-f <- loadFilms
+let w' = computeDeps w
+let s = scheduleScreenings w'
+f <- DL.sort <$> loadFilms
 let catalog = f
 let (f0:f1:f2:f3:f4:f5:f6:f7:f8:f9:_) = f
 let (s0:s1:s2:s3:s4:s5:s6:s7:s8:s9:_) = s
-let (sc1:sc2:sc3:_) = DL.take 3 $ viewableSchedulesFor w (DL.take 20 f)
+let scs@(sc1:sc2:sc3:_) = viewableSchedulesFor w (DL.take 10 f)
+let s' = DL.concat $ fmap scheduleScreenings $ DL.take 1 $ viewableSchedulesFor w (DL.take 20 f)
 let p = mapM_ print
 
+let toIds t = fmap (fmap (fmap screeningId)) $ t
+let toSt t = fmap (fmap (fmap showtime)) $ t
+let sl = screeningListsFor w (DL.take 10 f)
+let slc = DL.chunksOf 2 sl
+let r = DL.take 3 . DL.filter disjoint . sequence
+
+let f' = DL.foldr (\a b -> (fmap DL.concat . sequence $ a) : b) [] 
+
+let v = fmap sequence (DL.chunksOf 2 sl)
+
+let v' = f' (DL.chunksOf 2 v)
+let v'' = f' (DL.chunksOf 2 v')
+let v''' = f' (DL.chunksOf 2 v'')
+let v'''' = f' (DL.chunksOf 2 v''')
+
 run = hakyll . match "posts/*"
+
+:def! rg (\_ -> return ":r\n:g\n")
 
 :def! ra (\_ -> return ":set -w\n:l test/unit/Runner.hs\nrun")
 

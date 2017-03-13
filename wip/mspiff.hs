@@ -5,6 +5,7 @@ import qualified Data.Text as T
 import qualified Data.ByteString.Lazy as BS
 import Data.Aeson hiding (Array)
 import Data.List
+import Data.List.Split
 import Data.Time
 import Data.Time.Clock.POSIX
 import qualified Data.List as DL
@@ -25,8 +26,11 @@ data Film = Film
   , filmTitle :: Title
    --  ... other attributes as they become interesting.
   }
-  deriving (Eq,Show)
+  deriving (Show,Ord)
 
+instance Eq Film where
+  a == b = filmId a == filmId b
+  
 instance FromJSON Film where
   parseJSON (Object v) =
     Film <$>
@@ -38,10 +42,15 @@ instance FromJSON Film where
 data Screening = Screening
   { scFilmId :: FilmId
   , screeningId :: ScreeningId
+  , overlapping :: [Screening]
+  , otherScreening :: Maybe Screening
   , showtime :: Showtime
   , duration :: Duration
   }
-  deriving (Eq, Show)
+  deriving (Show)
+
+instance Eq Screening where
+  a == b = screeningId a == screeningId b
 
 instance Ord Screening where
   compare a b = showtime a `compare` showtime b
@@ -51,6 +60,8 @@ instance FromJSON Screening where
     Screening <$>
       v .: "scFilmId" <*>
       v .: "screeningId" <*>
+      pure [] <*>
+      pure Nothing <*>
       v .: "screeningTime" <*> -- seconds since Epoch
       ((60*) <$> v .: "duration" ) -- duration is given in minutes
   parseJSON _ = error "invalid screening json"
@@ -75,17 +86,60 @@ load path = do
     Nothing -> error "Failed to parse"
 
 newtype Schedule = Schedule { scheduleScreenings :: [Screening] }
-  deriving (Eq,Show)
+  deriving (Eq,Show,Monoid)
 
 type WholeSchedule = Schedule
+type DaySchedule = Schedule
 type ViewableSchedule = Schedule
 type Catalog = [Film]
+
+showtimeToUtc :: Screening -> UTCTime
+showtimeToUtc = posixSecondsToUTCTime . fromIntegral . showtime
+
+dayOf :: Screening -> Day
+dayOf = utctDay . showtimeToUtc
+
+partitionByDay :: WholeSchedule -> [DaySchedule]
+partitionByDay (Schedule s) = fmap Schedule $ reverse $ go s [] []
+  where
+    go [] curr ret = curr:ret
+    go (x:xs) [] ret = go xs [x] ret
+    go (x:xs) ys ret =
+      if dayOf (last ys) /= dayOf x
+       then go xs [x] (ys:ret)
+       else go xs (x:ys) ret
+  
+viewableDaySchedulesFor :: [Film] -> DaySchedule -> [ViewableSchedule]
+viewableDaySchedulesFor films s =
+  map Schedule .
+  filter disjoint .
+  sequence $ screeningListsFor s films
 
 viewableSchedulesFor :: WholeSchedule -> [Film] -> [ViewableSchedule]
 viewableSchedulesFor ws films =
   map Schedule .
   filter disjoint .
   sequence $ screeningListsFor ws films
+
+--viewableSchedulesFor' :: WholeSchedule -> [Film] -> [ViewableSchedule]
+viewableSchedulesFor' ws films = map Schedule $ DL.concat $ reduce start
+  where
+    f = DL.foldr (((:) . g)) []
+    g :: [[[Screening]]] -> [[Screening]]
+    g = take 500 . fmap stitch . sequence
+    stitch [] = []
+    stitch [x] = if disjoint x then x else []
+    stitch [x,y] = 
+      if disjoint (x++y) -- disjointLists x y
+        then x ++ y -- (error $ "NOT " ++ show (fmap screeningId x) ++ ":" ++ show (screeningId <$> y))
+        else []
+       
+    start = (filter disjoint . sequence) <$> chunksOf 2 (screeningListsFor ws films)
+    reduce :: [[[Screening]]] -> [[[Screening]]]
+    reduce [] = []
+    reduce [x] = [x]
+    reduce xs = reduce (f (chunksOf 2 xs))
+
 
 filmsInSchedule :: Catalog -> ViewableSchedule -> [Film]
 filmsInSchedule cat (Schedule s) =
@@ -106,7 +160,7 @@ filmsMissedBy cat ws vs =
   filter (filmMissedBy ws vs) (filmsNotInSchedule cat vs)
 
 screeningsFor :: WholeSchedule -> Film -> [Screening]
-screeningsFor s f = filter (filt f) (scheduleScreenings s)
+screeningsFor s f = sort $ filter (filt f) (scheduleScreenings s)
   where filt film screening = scFilmId screening == filmId film
 
 screeningListsFor :: WholeSchedule -> [Film] -> [[Screening]]
@@ -115,22 +169,29 @@ screeningListsFor = map . screeningsFor
 after :: Screening -> Screening -> Bool
 after a b = showtime a > showtime b + duration b
 
+overlaps :: (Screening, Screening) -> Bool
+overlaps (a, b) = not (a `after` b || b `after` a)  
+
+computeDeps :: WholeSchedule -> WholeSchedule
+computeDeps (Schedule ws) =
+  let
+    other s s' = s /= s' && scFilmId s' == scFilmId s
+    set s =
+      s { overlapping = fmap snd . filter overlaps . fmap (s,) $ (ws \\ [s])
+        , otherScreening = find (other s) ws
+        }
+        
+  in Schedule (set <$> ws)
+  
 disjoint :: [Screening] -> Bool
 disjoint = not . any overlaps . pairsOf
   where
     pairsOf s = [(a,b) | a <- s, b <- s, a/=b]
-    overlaps (a, b) = not (a `after` b || b `after` a)
 
-{--
-type FilmFilter = Film -> Bool
+--disjointLists :: [Screening] -> [Screening] -> Bool
+disjointLists x y = not $ any (==True) $ 
+  fmap (\y' -> any (==True) (fmap (\x' -> x' `elem` overlapping y') x)) y
 
-filmFilter :: FilmFilter -> [Film] -> [FilmId]
-filmFilter filt films = map filmId . filter filt $ films
-
-filmsForToday :: [Film] -> [FilmId]
-filmsForToday = filmFilter (\_ -> True)
-
---}
 
 {-
 sequence' :: OverlapMatrix -> [[Screening]] -> [[Screening]]
@@ -161,7 +222,7 @@ sequence = do
   -}
 
 showtimesForSchedule :: ViewableSchedule -> [UTCTime]
-showtimesForSchedule = (toUtc <$>) . sort . scheduleScreenings
+showtimesForSchedule = (toUtc <$>) . DL.sort . scheduleScreenings
   where
     toUtc = posixSecondsToUTCTime . fromIntegral . showtime
 
