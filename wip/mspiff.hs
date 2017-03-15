@@ -13,6 +13,8 @@ import Data.Maybe
 import Data.Array
 import Control.Monad
 import System.Environment
+import System.IO.Unsafe
+import Test.QuickCheck hiding (Success)
 
 type FilmId = Int
 type ScreeningId = Int
@@ -30,7 +32,43 @@ data Film = Film
 
 instance Eq Film where
   a == b = filmId a == filmId b
-  
+
+instance Arbitrary Film
+  where
+    arbitrary = do
+      i <- choose (0, length films - 1)
+      return (films ! i)
+
+arbitraryFilmList :: Int -> Gen [Film]
+arbitraryFilmList count = do
+  let
+    getOne list = do
+      f <- arbitrary
+      if f `elem` list then getOne list else return f
+    build c list = do
+      f <- getOne list
+      if c == 0
+        then return list
+        else build (c -1) (f:list)
+  build (min count (DL.length films)) []
+
+newtype FilmList = FilmList {fromFilmList :: [Film]} deriving Show
+instance Arbitrary FilmList
+  where
+    arbitrary = FilmList <$> arbitraryFilmList 20
+
+newtype DisjointList = DisjointList {fromScreeningList :: [Screening]}
+  deriving Show
+
+getOneDisjoint :: Gen [Screening]
+getOneDisjoint = do
+  l <- arbitrary
+  if disjoint l then return l else getOneDisjoint
+
+instance Arbitrary DisjointList
+  where
+    arbitrary = DisjointList <$> getOneDisjoint
+
 instance FromJSON Film where
   parseJSON (Object v) =
     Film <$>
@@ -46,6 +84,7 @@ data Screening = Screening
   , otherScreening :: Maybe Screening
   , showtime :: Showtime
   , duration :: Duration
+  , screen :: Screen
   }
   deriving (Show)
 
@@ -55,6 +94,12 @@ instance Eq Screening where
 instance Ord Screening where
   compare a b = showtime a `compare` showtime b
 
+instance Arbitrary Screening
+  where
+    arbitrary = do
+      i <- choose (0, length screenings - 1)
+      return (screenings ! i)
+
 instance FromJSON Screening where
   parseJSON (Object v) =
     Screening <$>
@@ -63,7 +108,8 @@ instance FromJSON Screening where
       pure [] <*>
       pure Nothing <*>
       v .: "screeningTime" <*> -- seconds since Epoch
-      ((60*) <$> v .: "duration" ) -- duration is given in minutes
+      ((60*) <$> v .: "duration" ) <*> -- duration is given in minutes
+      v .: "screen"
   parseJSON _ = error "invalid screening json"
 
 loadFilms :: IO [Film]
@@ -71,6 +117,18 @@ loadFilms = load "wip/films"
 
 loadScreenings :: IO [Screening]
 loadScreenings = load "wip/screenings"
+
+toArray :: IO [e] -> Array Int e
+toArray m = unsafePerformIO $ do
+  l <- m
+  return $ array (0, DL.length l -1) (DL.zip [0..] l)
+
+ws = Schedule (elems screenings)
+screenings :: Array Int Screening
+screenings = toArray (fmap (computeDeps . DL.sort) loadScreenings)
+
+films :: Array Int Film
+films = toArray loadFilms
 
 load :: FromJSON a => FilePath -> IO a
 load path = do
@@ -87,6 +145,7 @@ load path = do
 
 newtype Schedule = Schedule { scheduleScreenings :: [Screening] }
   deriving (Eq,Show,Monoid)
+
 
 type WholeSchedule = Schedule
 type DaySchedule = Schedule
@@ -108,33 +167,34 @@ partitionByDay (Schedule s) = fmap Schedule $ reverse $ go s [] []
       if dayOf (last ys) /= dayOf x
        then go xs [x] (ys:ret)
        else go xs (x:ys) ret
-  
+
 viewableDaySchedulesFor :: [Film] -> DaySchedule -> [ViewableSchedule]
-viewableDaySchedulesFor films s =
+viewableDaySchedulesFor fs s =
   map Schedule .
   filter disjoint .
-  sequence $ screeningListsFor s films
+  sequence $ screeningListsFor s fs
 
 viewableSchedulesFor :: WholeSchedule -> [Film] -> [ViewableSchedule]
-viewableSchedulesFor ws films =
+viewableSchedulesFor ws fs =
   map Schedule .
+  filter (not . null) .
   filter disjoint .
-  sequence $ screeningListsFor ws films
+  sequence $ screeningListsFor ws fs
 
---viewableSchedulesFor' :: WholeSchedule -> [Film] -> [ViewableSchedule]
-viewableSchedulesFor' ws films = map Schedule $ DL.concat $ reduce start
+viewableSchedulesFor' :: WholeSchedule -> [Film] -> [ViewableSchedule]
+viewableSchedulesFor' ws fs = map Schedule $ filter (not.null) $ DL.concat $ reduce start
   where
-    f = DL.foldr (((:) . g)) []
+    f = DL.foldr ((:) . g) []
     g :: [[[Screening]]] -> [[Screening]]
-    g = take 500 . fmap stitch . sequence
-    stitch [] = []
+    g = filter (not . null) . fmap stitch . sequence
     stitch [x] = if disjoint x then x else []
-    stitch [x,y] = 
-      if disjoint (x++y) -- disjointLists x y
-        then x ++ y -- (error $ "NOT " ++ show (fmap screeningId x) ++ ":" ++ show (screeningId <$> y))
-        else []
-       
-    start = (filter disjoint . sequence) <$> chunksOf 2 (screeningListsFor ws films)
+    stitch [x,y] =
+      let r = (x++y)
+      in if disjointLists x y
+           then r --disjointLists x y = x ++ y
+           else []
+
+    start = (filter disjoint . sequence) <$> chunksOf 2 (screeningListsFor ws fs)
     reduce :: [[[Screening]]] -> [[[Screening]]]
     reduce [] = []
     reduce [x] = [x]
@@ -148,10 +208,10 @@ filmsInSchedule cat (Schedule s) =
       fps = zip (filmId <$> cat) cat
 
 filmsNotInSchedule :: Catalog -> ViewableSchedule -> [Film]
-filmsNotInSchedule cat vs = cat \\ (filmsInSchedule cat vs)
+filmsNotInSchedule cat vs = cat \\ filmsInSchedule cat vs
 
 filmMissedBy :: WholeSchedule -> ViewableSchedule -> Film -> Bool
-filmMissedBy ws (Schedule vs) film = all (not . disjoint) $ augmentedSchedules
+filmMissedBy ws (Schedule vs) film = all (not . disjoint) augmentedSchedules
   where
     augmentedSchedules = (:vs) `map` screeningsFor ws film
 
@@ -170,27 +230,40 @@ after :: Screening -> Screening -> Bool
 after a b = showtime a > showtime b + duration b
 
 overlaps :: (Screening, Screening) -> Bool
-overlaps (a, b) = not (a `after` b || b `after` a)  
+overlaps (a, b) = not (a `after` b || b `after` a)
 
-computeDeps :: WholeSchedule -> WholeSchedule
-computeDeps (Schedule ws) =
+computeDeps :: [Screening] -> [Screening]
+computeDeps ss =
   let
     other s s' = s /= s' && scFilmId s' == scFilmId s
     set s =
-      s { overlapping = fmap snd . filter overlaps . fmap (s,) $ (ws \\ [s])
-        , otherScreening = find (other s) ws
+      s { overlapping = fmap snd . filter overlaps . fmap (s,) $ (ss \\ [s])
+        , otherScreening = find (other s) ss
         }
-        
-  in Schedule (set <$> ws)
-  
+
+  in set <$> ss
+
 disjoint :: [Screening] -> Bool
 disjoint = not . any overlaps . pairsOf
   where
     pairsOf s = [(a,b) | a <- s, b <- s, a/=b]
 
---disjointLists :: [Screening] -> [Screening] -> Bool
-disjointLists x y = not $ any (==True) $ 
-  fmap (\y' -> any (==True) (fmap (\x' -> x' `elem` overlapping y') x)) y
+disjointLists' :: [Screening] -> [Screening] -> Bool
+disjointLists' x y = disjoint (x++y)
+
+
+anyOverlap :: [Screening] -> Screening -> Bool
+anyOverlap [] _ = False
+anyOverlap (y:ys) x | x `elem` overlapping y = True
+                    | otherwise = anyOverlap ys x
+disjointLists :: [Screening] -> [Screening] -> Bool
+disjointLists = go
+  where
+    disjoint' x y = not (foldr (\a b -> b || anyOverlap x a) False y)
+    go [] [] = True
+    go _ [] = True
+    go [] _ = True
+    go x y = disjoint' x y && disjoint' y x
 
 
 {-
@@ -229,21 +302,16 @@ showtimesForSchedule = (toUtc <$>) . DL.sort . scheduleScreenings
 readInt :: String -> Int
 readInt = read
 
-{-
 main :: IO ()
 main = do
-  s <- DL.sort <$> loadScreenings
-  let mat = overlapMatrix s  
   (c:_) <- getArgs
-  let w = Schedule s 
-  f <- loadFilms
-  let (sc1:_) = DL.take 1 $ DL.dropWhile (not . disjoint' mat) $ sequence $ screeningListsFor w (DL.take (readInt c) f)
-  mapM_ print sc1
--}
-
-  
-  
-  
+  let w = Schedule (elems screenings)
+  forever $ do
+    ts <- getCurrentTime
+    f <- replicateM (readInt c) (generate arbitrary) :: IO [Film]
+    case DL.take 1 (viewableSchedulesFor' w f) of
+      [x] -> print (showtimesForSchedule x)
+      _ -> print "NONE"
 {-
 type OverlapMatrix = Array (Int,Int) Bool
 overlapMatrix :: [Screening] -> OverlapMatrix
@@ -271,3 +339,18 @@ disjoint' mat = not . any overlaps . pairsOf
 
 
 -}
+
+makeHoles :: Eq a => [a] -> [[a]]
+makeHoles xs = fmap (\x -> xs \\ [x]) xs
+
+impossiblePairs :: WholeSchedule -> [Film] -> [[Film]]
+impossiblePairs w fs = DL.foldr filt [] combos
+  where
+    combos = [[a,b] | a <- fs, b <- fs, filmId a < filmId b]
+    filt a b = if DL.null (viewableSchedulesFor' w a) then a:b else b
+
+impossibleTriples :: WholeSchedule -> [Film] -> [[Film]]
+impossibleTriples w fs = DL.foldr filt [] combos
+  where
+    combos = [[a,b] | a <- fs, b <- fs, c <- fs, filmId a < filmId b && filmId b < filmId c]
+    filt a b = if DL.null (viewableSchedulesFor' w a) then a:b else b

@@ -23,7 +23,7 @@ import Data.Text.Read
 import Data.Text
 import Data.Time
 import Data.Maybe
-import Hakyll
+import Hakyll hiding (match)
 import qualified Hakyll as H
 import Network.HTTP.Client
 import Text.HTML.TagSoup
@@ -33,7 +33,7 @@ ts@(UTCTime d dt) <- getCurrentTime
 s <- DL.sort <$> loadScreenings
 
 let w = Schedule s
-let w' = computeDeps w
+let w' = Schedule (computeDeps (scheduleScreenings w))
 let s = scheduleScreenings w'
 f <- DL.sort <$> loadFilms
 let catalog = f
@@ -43,22 +43,20 @@ let scs@(sc1:sc2:sc3:_) = viewableSchedulesFor w (DL.take 10 f)
 let s' = DL.concat $ fmap scheduleScreenings $ DL.take 1 $ viewableSchedulesFor w (DL.take 20 f)
 let p = mapM_ print
 
+let qc = quickCheckWith stdArgs { maxSuccess = 5000 }
+let vc = verboseCheckWith stdArgs { maxSuccess = 5000 }
+let hist v = DL.foldl' (\(a,b) v' -> if v' == v then (a+1,b) else (a,b+1)) (0,0)
 let toIds t = fmap (fmap (fmap screeningId)) $ t
 let toSt t = fmap (fmap (fmap showtime)) $ t
 let sl = screeningListsFor w (DL.take 10 f)
 let slc = DL.chunksOf 2 sl
 let r = DL.take 3 . DL.filter disjoint . sequence
-
-let f' = DL.foldr (\a b -> (fmap DL.concat . sequence $ a) : b) [] 
+let toUtc = posixSecondsToUTCTime . fromIntegral . showtime
+let f' = DL.foldr (\a b -> (fmap DL.concat . sequence $ a) : b) []
 
 let v = fmap sequence (DL.chunksOf 2 sl)
 
-let v' = f' (DL.chunksOf 2 v)
-let v'' = f' (DL.chunksOf 2 v')
-let v''' = f' (DL.chunksOf 2 v'')
-let v'''' = f' (DL.chunksOf 2 v''')
-
-run = hakyll . match "posts/*"
+-- run = hakyll . match "posts/*"
 
 :def! rg (\_ -> return ":r\n:g\n")
 
@@ -75,3 +73,9 @@ run = hakyll . match "posts/*"
 :def! b (\_ -> return (":l src/main.hs\n:set args build\nmain"))
 :def! rb (\_ -> return (":l src/main.hs\n:set args rebuild\nmain"))
 
+let nonempty x |DL.null x = False |otherwise = True
+
+t' :: FilmList -> Bool
+t' (FilmList f) = nonempty (viewableSchedulesFor' w' f)
+t'' :: DisjointList -> DisjointList -> Bool
+t'' (DisjointList s) (DisjointList s') = disjointLists s s' == disjointLists' s s'

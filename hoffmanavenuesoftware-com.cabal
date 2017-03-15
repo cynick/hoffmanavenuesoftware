@@ -48,10 +48,16 @@ executable mspiff
                   , parsec
                   , contravariant
                   , array
+                  , QuickCheck
+                  , template-haskell
+                  , file-embed
+                  , array
+                  , monad-loops
   ghc-options: -O2
   default-extensions: OverloadedStrings
                       , FlexibleContexts
                       , GeneralizedNewtypeDeriving
                       , TupleSections
+                      , TemplateHaskell
   default-language: Haskell2010
 

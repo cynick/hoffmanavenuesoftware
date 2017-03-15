@@ -233,7 +233,7 @@ want to combine all the elements of a list with all the elements of a
 
 ``` haskell
 process :: [a] -> [[a]] -> [[a]]
-process list acc = [combine | x <- list, y <- acc]
+process list acc = [combine x y| x <- list, y <- acc]
 ```
 In the above expression, <code>x :: a</code>, and <code>y :: [a]</code>, 
 so the combine function needs to have type <code>a -> [a] -> [a]</code>.
