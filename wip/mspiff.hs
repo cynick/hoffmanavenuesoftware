@@ -12,6 +12,7 @@ import qualified Data.List as DL
 import Data.Maybe
 import Data.Array
 import Control.Monad
+import qualified Control.Monad.Logic as L
 import System.Environment
 import System.IO.Unsafe
 import Test.QuickCheck hiding (Success)
@@ -55,7 +56,7 @@ arbitraryFilmList count = do
 newtype FilmList = FilmList {fromFilmList :: [Film]} deriving Show
 instance Arbitrary FilmList
   where
-    arbitrary = FilmList <$> arbitraryFilmList 20
+    arbitrary = FilmList <$> arbitraryFilmList 50
 
 newtype DisjointList = DisjointList {fromScreeningList :: [Screening]}
   deriving Show
@@ -77,6 +78,10 @@ instance FromJSON Film where
 
   parseJSON _ = error "invalid film json"
 
+data ScreeningStatus =
+  InSchedule | Impossible | OtherInSchedule | Unscheduled
+  deriving (Enum, Show)
+
 data Screening = Screening
   { scFilmId :: FilmId
   , screeningId :: ScreeningId
@@ -85,6 +90,7 @@ data Screening = Screening
   , showtime :: Showtime
   , duration :: Duration
   , screen :: Screen
+  , status :: ScreeningStatus
   }
   deriving (Show)
 
@@ -109,7 +115,8 @@ instance FromJSON Screening where
       pure Nothing <*>
       v .: "screeningTime" <*> -- seconds since Epoch
       ((60*) <$> v .: "duration" ) <*> -- duration is given in minutes
-      v .: "screen"
+      v .: "screen" <*>
+      pure Unscheduled
   parseJSON _ = error "invalid screening json"
 
 loadFilms :: IO [Film]
@@ -152,27 +159,11 @@ type DaySchedule = Schedule
 type ViewableSchedule = Schedule
 type Catalog = [Film]
 
-showtimeToUtc :: Screening -> UTCTime
-showtimeToUtc = posixSecondsToUTCTime . fromIntegral . showtime
+screeningShowtime :: Screening -> UTCTime
+screeningShowtime = posixSecondsToUTCTime . fromIntegral . showtime
 
 dayOf :: Screening -> Day
-dayOf = utctDay . showtimeToUtc
-
-partitionByDay :: WholeSchedule -> [DaySchedule]
-partitionByDay (Schedule s) = fmap Schedule $ reverse $ go s [] []
-  where
-    go [] curr ret = curr:ret
-    go (x:xs) [] ret = go xs [x] ret
-    go (x:xs) ys ret =
-      if dayOf (last ys) /= dayOf x
-       then go xs [x] (ys:ret)
-       else go xs (x:ys) ret
-
-viewableDaySchedulesFor :: [Film] -> DaySchedule -> [ViewableSchedule]
-viewableDaySchedulesFor fs s =
-  map Schedule .
-  filter disjoint .
-  sequence $ screeningListsFor s fs
+dayOf = utctDay . screeningShowtime
 
 viewableSchedulesFor :: WholeSchedule -> [Film] -> [ViewableSchedule]
 viewableSchedulesFor ws fs =
@@ -188,11 +179,7 @@ viewableSchedulesFor' ws fs = map Schedule $ filter (not.null) $ DL.concat $ red
     g :: [[[Screening]]] -> [[Screening]]
     g = filter (not . null) . fmap stitch . sequence
     stitch [x] = if disjoint x then x else []
-    stitch [x,y] =
-      let r = (x++y)
-      in if disjointLists x y
-           then r --disjointLists x y = x ++ y
-           else []
+    stitch [x,y] = if disjointLists x y then x ++ y else []
 
     start = (filter disjoint . sequence) <$> chunksOf 2 (screeningListsFor ws fs)
     reduce :: [[[Screening]]] -> [[[Screening]]]
@@ -200,6 +187,15 @@ viewableSchedulesFor' ws fs = map Schedule $ filter (not.null) $ DL.concat $ red
     reduce [x] = [x]
     reduce xs = reduce (f (chunksOf 2 xs))
 
+{-
+viewableSchedulesFor'' ws fs = 
+  L.sequence (screeningListsFor ws fs) >>= fmap filt
+  where
+    filt xs = do
+      x <- xs
+      L.guard (disjoint x)
+      return x
+-}
 
 filmsInSchedule :: Catalog -> ViewableSchedule -> [Film]
 filmsInSchedule cat (Schedule s) =
@@ -343,14 +339,18 @@ disjoint' mat = not . any overlaps . pairsOf
 makeHoles :: Eq a => [a] -> [[a]]
 makeHoles xs = fmap (\x -> xs \\ [x]) xs
 
-impossiblePairs :: WholeSchedule -> [Film] -> [[Film]]
-impossiblePairs w fs = DL.foldr filt [] combos
+impossibleFilt w a b = if DL.null (viewableSchedulesFor' w a) then a:b else b
+
+impossible c w = DL.foldr (impossibleFilt w) [] c
+
+type Impossibles = [Film] -> WholeSchedule -> [[Film]]
+
+impossible2 :: Impossibles
+impossible2 fs = impossible combos
   where
     combos = [[a,b] | a <- fs, b <- fs, filmId a < filmId b]
-    filt a b = if DL.null (viewableSchedulesFor' w a) then a:b else b
 
-impossibleTriples :: WholeSchedule -> [Film] -> [[Film]]
-impossibleTriples w fs = DL.foldr filt [] combos
+impossible3 :: Impossibles
+impossible3 fs = impossible combos
   where
-    combos = [[a,b] | a <- fs, b <- fs, c <- fs, filmId a < filmId b && filmId b < filmId c]
-    filt a b = if DL.null (viewableSchedulesFor' w a) then a:b else b
+    combos = [[a,b,c] | a <- fs, b <- fs, c <- fs, filmId a < filmId b && filmId b < filmId c]
