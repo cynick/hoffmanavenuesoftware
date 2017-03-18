@@ -2,8 +2,8 @@
 author: cynick
 date: 2013-12-10 09:48:35+00:00
 layout: post
-link: http://hoffmanavenuesoftware.com/analyzing-mspiff
-slug: analyzing-mspiff
+link: http://local.hoffmanavenuesoftware.com/taming-mspiff
+slug: taming-mspiff
 title: Taming the Minneapolis/St. Paul International Film Festival
 ---
 
@@ -14,13 +14,13 @@ see as many films as I could.
 MSPIFF is very large, and it keeps getting bigger.
 
 And as it grows, it gets more complex.
-As opposed to smaller festivals that only have a single screen, 
-and therefore a person of stamina could see every film, 
-MSPIFF typically has films running on five screens at the same time, 
+As opposed to smaller festivals that only have a single screen,
+and therefore a person of stamina could see every film,
+MSPIFF typically has films running on five screens at the same time,
 meaning that super-consumer has to make choices.
 
 The interesting twist is that most films usually have two screenings,
-which provides an exponential number of ways to see the films.
+which leads to an enormous number of ways to see the films.
 Ie., if each film screens twice, there are 2^(number of films) ways to
 see all of the films, a very large number indeed!
 
@@ -39,7 +39,9 @@ One or more of the films I do *not* choose
 might still be interesting to me, so, for those films, I have to
 lookup the *other* time they may be showing, and then for each of
 those screenings, look at what films are showing at the same time,
-and figure out what other times *those* films are screening.
+and therfore I would miss, and figure out what other times *those*
+films are screening.<br>
+And so on.
 
 After about three levels of this, the decision tree overflows the
 tiny L1 cache of my brain.
@@ -116,15 +118,15 @@ In doing this, we first need some utility functions.<br>
 First, screening x is after screening y if the showtime of x
 is after the end time of y, given by showtime + duration:<br>
 (For a real-world solution, we might wish to add some padding
-for travel between screening rooms, or a quick run to eat some food, 
+for travel between screening venues, or a quick run to eat some food,
 but we'll ignore this for now.)
 
-``` haskell 
+``` haskell
 after :: Screening -> Screening -> Bool
 after x y = showtime x > showtime y + duration y
 ```
 
-And then, two screenings x and y do not overlap if 
+And then, two screenings x and y overlap if
 either x is strictly after y or y is strictly after x.
 
 ``` haskell
@@ -132,24 +134,24 @@ overlaps :: (Screening,Screening) -> Bool
 overlaps (x,y) = not (x `after` y || y `after` x)
 ```
 
-Next, given a list of screenings, we want to know whether or not 
+Next, given a list of screenings, we want to know whether or not
 they are disjoint, ie., none of the screenings overlap each other.
 
 ``` haskell
 disjoint :: [Screening] -> Bool
 disjoint s = not . any overlaps . pairsOf
-  where 
+  where
     pairsOf s = [(a,b) | a <- s, b <- s, a/=b]
 ```
 The definition of this function reads very much like the English
 definition, which is pleasant.<br>
 It's worth noting that laziness is a big help here.
-The <code>any</code> function stops processing its input list when 
+The <code>any</code> function stops processing its input list when
 it first hits an element that makes its predicate true.<br>
-Due to laziness, <code>pairsOf</code> is not 
-constructed all in one go, but rather on demand as 
+Due to laziness, <code>pairsOf</code> is not
+constructed all in one go, but rather on demand as
 the <code>any</code> function consumes it.<br>
-Ie., if the first two screenings in the list overlap, only one pair 
+Ie., if the first two screenings in the list overlap, only one pair
 will be constructed.<br>
 By the same token, we can see that if the pair (a,b)
 overlaps, the pair (b,a) will overlap as well, but since
@@ -175,7 +177,7 @@ screeningsForFilmList = map . screeningsFor
 ```
 
 Now we're getting to the core of the problem.<br>
-Given a <code>[[Screening]]</code>, we want to generate every 
+Given a <code>[[Screening]]</code>, we want to generate every
 combination of the items in each list,
 and then filter out any combinations that are not disjoint.
 
@@ -220,44 +222,44 @@ Ie., it takes a list from the list of lists we are folding,
 and the accumulated result, and returns a new accumulated result.<br>
 What should this function do?
 
-Earlier, we constructed the set of all pairs of elements from a given 
-list via 
+Earlier, we constructed the set of all pairs of elements from a given
+list via
 
-``` haskell 
+``` haskell
 pairsOf list = [(a,b) | a <- list, b <- list, a/=b]
 ```
 
 We nearly want to do the same thing here, except that instead we now
-want to combine all the elements of a list with all the elements of a 
+want to combine all the elements of a list with all the elements of a
 *list of lists*.
 
 ``` haskell
 process :: [a] -> [[a]] -> [[a]]
 process list acc = [combine x y| x <- list, y <- acc]
 ```
-In the above expression, <code>x :: a</code>, and <code>y :: [a]</code>, 
+In the above expression, <code>x :: a</code>, and <code>y :: [a]</code>,
 so the combine function needs to have type <code>a -> [a] -> [a]</code>.
 
-One of the strengths of Haskell is that its type system allows one 
-to reason about the *inhabitants* of a type (ie., for a function type,
-implementations of that function), and sometimes there are so few 
+One of the strengths of Haskell is that its type system allows one
+to reason about the possible *inhabitants* of a type (ie., for a function type,
+*implementations* of that function), and sometimes there are so few
 inhabitants that only one really makes sense for what you're trying to do.
 
 Since combine is a polymorphic pure function,
-it lacks the type information needed to construct any new instances 
+it lacks the type information needed to construct any new instances
 of a, so all we can do is manipulate the arguments we are given.<br>
 We clearly want to use both arguments.<br>
-Ie., we could return [] or just a list containing the first argument, 
+Ie., we could return [] or just a list containing the first argument,
 or half of the elements of second argument,
-but that would be discarding information when we're trying to 
+but that would be discarding information when we're trying to
 build information.<br>
 We could also imagine using some combination of repeat, cycle, and
 take to create new lists of a with the given arguments, but that would
 be adding *superfluous* information.
 
-It really seems like the only thing that makes sense is to add 
+It really seems like the only thing that makes sense is to add
 the first argument to the second argument.<br>
-There's a function for that, ie., the fundamental list constructor, 
+There's a function for that, ie., the fundamental list constructor,
 which has the type we desire:
 
 ```haskell
@@ -284,7 +286,7 @@ Neato.
 
 It was fun to reason about how to write this function, but it
 shouldn't be too surprising that it already exists in the standard
-library, generalized for all instances of Monad and Traversable, 
+library, generalized for all instances of Monad and Traversable,
 which [] has instances for both:
 
 ``` haskell
@@ -292,11 +294,11 @@ sequence :: (Monad m, Traversable t) => t (m a) -> m (t a)
 ```
 
 Okay!<br>
-Now we can finally write 
+Now we can finally write
 
 ``` haskell
 viewableSchedulesFor :: WholeSchedule -> [Film] -> [ViewableSchedule]
-viewableSchedulesFor schedule films = 
+viewableSchedulesFor schedule films =
   map Schedule . filter disjoint . sequence $ screeningListsFor schedule films
 ```
 
@@ -304,7 +306,7 @@ Next up: Given a <code>ViewableSchedule</code>, are there films that
 will be missed?
 
 Once again, we need some utility functions.
-For a given viewable schedule, we want a list of all the films 
+For a given viewable schedule, we want a list of all the films
 that are in the catalog, but *not* in the given schedule.
 
 ``` haskell
@@ -322,14 +324,14 @@ Next we need to be able to ask, for a given film and a viewable
 schedule, whether or not that film can be viewed.<br>
 To do this, for each screening of a film we augment the given viewable schedule
 with that screening.<br>
-If none of these augmented schedules are disjoint, that means that all 
+If none of these augmented schedules are disjoint, that means that all
 of the film's screenings overlap with some screening in the viewable
 schedule, and therefore, the film will be missed.<br>
 
 ``` haskell
 filmMissedBy :: WholeSchedule -> ViewableSchedule -> Film -> Bool
 filmMissedBy ws (Schedule vs) film = all (not . disjoint) $ augmentedSchedules
-  where 
+  where
     augmentedSchedules = (:vs) `map` screeningsFor ws film
 ```
 
@@ -344,10 +346,10 @@ filmsMissedBy cat ws vs =
 
 ```
 
-With this, we can place a value on a given viewable schedule wherein 
-the smaller the number of missed films associated with that schedule, 
+With this, we can place a value on a given viewable schedule wherein
+the smaller the number of missed films associated with that schedule,
 the more valuable it is.
 Ie., if we are choosing from all of the possible schedules of a list
-of ten films, we'd like to pick the one that precludes us from seeing 
+of ten films, we'd like to pick the one that precludes us from seeing
 the fewest number of films *not* in the list, since that gives us more
 options.
