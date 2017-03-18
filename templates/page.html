@@ -77,7 +77,9 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
-            <h1 class="brand-heading">Hoffman Avenue Software</h1>
+            <a href="/">
+              <h1 class="brand-heading">Hoffman Avenue Software</h1>
+            </a>
             <p class="intro-text">Using functional programming to solve technology problems</p>
             <a href="#blog" class="btn btn-circle page-scroll">
               <i class="fa fa-angle-double-down animated"></i>
@@ -90,13 +92,11 @@
 
   <!-- Blog Section -->
   <section id="blog" class="container content-section text-left">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2">
-        $if(posts)$
-          $for(posts)$ $body$ $endfor$
-        $endif$
-      </div>
-    </div>
+    $if(posts)$
+    $for(posts)$
+    $body$
+    $endfor$
+    $endif$
   </section>
 
     <!-- About Section -->
@@ -104,6 +104,9 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
         <h2>About</h2>
+        $if(about)$
+          $for(about)$ $body$ $endfor$
+        $endif$
       </div>
     </div>
   </section>
@@ -113,6 +116,9 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
         <h2>Contact</h2>
+        <p>
+        I'm always interested in hearing about interesting problems.<br>
+        Drop me a line!<br>
         <p><a href="mailto:nick@hoffmanavenuesoftware.com">nick@hoffmanavenuesoftware.com</a>
         </p>
         <ul class="list-inline banner-social-buttons">
@@ -126,9 +132,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Map Section -->
-  <!-- <div id="map"></div> -->
 
   <!-- Footer -->
   <footer>
