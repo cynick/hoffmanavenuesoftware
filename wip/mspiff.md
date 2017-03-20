@@ -8,16 +8,16 @@ title: Taming the Minneapolis/St. Paul International Film Festival
 ---
 
 I am a big fan of the Minneapolis/Saint Paul International Film
-Festival.
+Festival.<br>
 For the past 17 years, I've purchased a Gold Pass and tried to
 see as many films as I could.
 MSPIFF is very large, and it keeps getting bigger.
 
-And as it grows, it gets more complex.
+And as it has grown, it has gotten more and more complex.
 As opposed to smaller festivals that only have a single screen,
 and therefore a person of stamina could see every film,
 MSPIFF typically has films running on five screens at the same time,
-meaning that super-consumer has to make choices.
+meaning that a superfan has to make some choices.
 
 The interesting twist is that most films usually have two screenings,
 which leads to an enormous number of ways to see the films.
@@ -44,9 +44,9 @@ films are screening.<br>
 And so on.
 
 After about three levels of this, the decision tree overflows the
-tiny L1 cache of my brain.
+tiny L2 cache of my brain.
 And year after year, I inevitably get to the end of the festival
-only to realize that I had missed some film that I had particularily
+only to realize that I had missed some film that I had particularly
 wanted to see.
 
 I needed some software to help me tame this decision tree!
@@ -67,6 +67,7 @@ First, we define the data types we'll need.
 import Data.Text
 
 type FilmId = Int
+type ScreeningId = Int
 type Title = Text
 type Showtime = Int
 type Duration = Int
@@ -80,10 +81,10 @@ data Film = Film
   deriving (Eq,Show)
 
 data Screening = Screening
-  { scFilmId :: FilmId
-  , showtime :: Showtime
-  , duration :: Duration
-  , screen   :: Screen
+  { screeningFilm :: Film
+  , showtime      :: Showtime
+  , duration      :: Duration
+  , screen        :: Screen
   }
   deriving (Eq, Show)
 
@@ -162,8 +163,8 @@ given film:
 
 ``` haskell
 screeningsFor :: WholeSchedule -> Film -> [Screening]
-screeningsFor (Schedule screenings) film = filter (filt film) screenings
-  where filt film screening = scFilmId screening == filmId film
+screeningsFor (Schedule screenings) film =
+  filter (\screening -> screeningFilm screening == film) screenings
 ```
 This is just a filter by comparing on the film id of the screening
 to the film id of the film.
@@ -235,7 +236,7 @@ want to combine all the elements of a list with all the elements of a
 
 ``` haskell
 process :: [a] -> [[a]] -> [[a]]
-process list acc = [combine x y| x <- list, y <- acc]
+process list acc = [combine x y | x <- list, y <- acc]
 ```
 In the above expression, <code>x :: a</code>, and <code>y :: [a]</code>,
 so the combine function needs to have type <code>a -> [a] -> [a]</code>.
@@ -247,7 +248,8 @@ inhabitants that only one really makes sense for what you're trying to do.
 
 Since combine is a polymorphic pure function,
 it lacks the type information needed to construct any new instances
-of a, so all we can do is manipulate the arguments we are given.<br>
+of <code>a</code>, so all we can do is manipulate the arguments 
+we are given.<br>
 We clearly want to use both arguments.<br>
 Ie., we could return [] or just a list containing the first argument,
 or half of the elements of second argument,
