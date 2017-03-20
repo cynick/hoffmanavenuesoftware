@@ -20,7 +20,7 @@ siteTitle :: IsString a => a
 siteTitle = "Hoffman Avenue Software"
 
 siteBase :: IsString a => a
-siteBase = "http://local.hoffmanavenuesoftware.com"
+siteBase = "http://local.hoffmanavenuesoftware.com/"
 
 markdownPosts :: IsString a => a
 markdownPosts = "posts/*.md"
@@ -45,22 +45,22 @@ loadAllWithPat pat ver = recentFirst =<< loadAll pat'
 renderedPosts :: Compiler [Item String]
 renderedPosts = loadAllWithPat markdownPosts (Just "post")
 
+renderedPostsWithNav :: Compiler [Item String]
+renderedPostsWithNav = loadAllWithPat markdownPosts (Just "nav")
+
 renderedPostPaths :: Compiler [FilePath]
 renderedPostPaths = fmap (fmap (toFilePath . itemIdentifier)) renderedPosts
 
 postNavToUrl :: MonadMetadata m => String -> m String
-postNavToUrl = absRouteForPostIdent . fromFilePath
+postNavToUrl = routeForPostIdent . fromFilePath
 
-navToUrl :: String -> String
-navToUrl = (siteBase <>)
-
-absRouteForPostIdent :: MonadMetadata m => Identifier -> m FilePath
-absRouteForPostIdent ident = (navToUrl . routeFromMetadata) <$> getMetadata ident
+routeForPostIdent :: MonadMetadata m => Identifier -> m FilePath
+routeForPostIdent ident = routeFromMetadata <$> getMetadata ident
 
 routeFromMetadata :: Metadata -> String
 routeFromMetadata md = toStr $ fromJust (M.lookup "slug" md)
   where
-    toStr (A.String s) = T.unpack s
+    toStr (A.String s) = "#" ++ T.unpack s
     toStr _ = error "Expected slug to be a String value"
 
 postRoute :: Routes
@@ -74,6 +74,12 @@ applyTemplate t context = loadAndApplyTemplate t context >=> relativizeUrls
 
 pageTemplate :: IsString a => a
 pageTemplate = "templates/page.html"
+
+postTemplate :: IsString a => a
+postTemplate = "templates/post.html"
+
+navTemplate :: IsString a => a
+navTemplate = "templates/nav.html"
 
 standalone :: IsString a => a
 standalone = "templates/standalone.html"
@@ -160,8 +166,7 @@ compileAssets = do
 compileStandalone :: Pattern -> Rules ()
 compileStandalone pat = match pat $ do
  route $ setExtension ""
- compile $ pandocCompiler
-   >>= applyTemplate standalone postContext
+ compile $ pandocCompiler >>= applyTemplate standalone postContext
 
 compileAbout :: Rules ()
 compileAbout = compileStandalone "about.md"
@@ -176,18 +181,16 @@ compilePosts = match markdownPosts $ do
   compile $ do
     ident <- getUnderlying
     let pat = fromString (toFilePath ident)
-    allPosts <- renderedPosts
+    allPosts <- renderedPostsWithNav
+    about <- loadAllWithPat "about.md" Nothing
     let allPostIdentifiers = DL.takeWhile (/= ' ') <$> (toFilePath . itemIdentifier <$> allPosts)
     post <- DL.head <$> loadAllWithPat pat (Just "post")
     let posts' = reorderPosts (toFilePath ident,post) (zip allPostIdentifiers allPosts)
-    navUrls <- navUrlsFor ident renderedPostPaths postNavToUrl
-    about <- loadAllWithPat "about.md" Nothing
+
     let
       context =
         listField "posts" postContext (return (snd <$> posts')) <>
-        listField "about" postContext (return about) <>
-        navContext navUrls
-
+        listField "about" postContext (return about)
     pandocCompiler >>= applyPageTemplate context
 
 indexRoute :: String -> Routes
@@ -198,17 +201,16 @@ createIndex =
   create ["index.html"] $ do
     route idRoute
     compile $ do
-      posts <- renderedPosts
+      posts <- renderedPostsWithNav
       about <- loadAllWithPat "about.md" Nothing
 
-      navUrls <- navUrlsFor (itemIdentifier (head posts)) renderedPostPaths postNavToUrl
       let
         context =
           mconcat
           [ constField "title" siteTitle
           , listField "posts" postContext (return posts)
           , listField "about" postContext (return about)
-          , navContext navUrls
+          , postContext
           ]
       makeItem "" >>= applyPageTemplate context
 
@@ -219,17 +221,30 @@ site = hakyll $ do
   match markdownPosts $ version "post" $
     compile $
       pandocCompiler
-        >>= loadAndApplyTemplate "templates/post.html" postContext
+        >>= loadAndApplyTemplate postTemplate postContext
+
+  match markdownPosts $ version "nav" $
+    compile $ do
+      ident <- getUnderlying
+      allPosts <- renderedPosts
+      let
+        pat = fromString (toFilePath ident)
+        allPostIdentifiers =
+          DL.takeWhile (/= ' ') <$> (toFilePath . itemIdentifier <$> allPosts)
+      post <- DL.head <$> loadAllWithPat pat (Just "post")
+      let
+        posts' =
+          reorderPosts (toFilePath ident,post) (zip allPostIdentifiers allPosts)
+      navUrls <- navUrlsFor ident (return (fst <$> posts')) postNavToUrl
+      let context = navContext navUrls
+      pandocCompiler >>= loadAndApplyTemplate navTemplate context
 
   match "about.md" $
     compile $
       pandocCompiler
-        >>= loadAndApplyTemplate "templates/standalone.html" postContext
+        >>= loadAndApplyTemplate standalone postContext
 
   compileAssets
   compilePosts
 
   createIndex
-
-
-

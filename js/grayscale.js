@@ -39,9 +39,9 @@ var lib = (function () {
     $(".post").hide()
     var post = $(".post").eq(postIndex)
     post.show()
-    $('html, body').animate({
+    $('html, body').stop().animate({
       scrollTop: post.offset().top - 75
-    }, 2000)
+    }, 1500, 'easeInOutExpo')
   }
 
   function maybeNavigate(e) {
@@ -64,16 +64,16 @@ var lib = (function () {
     document.onkeydown = maybeNavigate
     $(window).scroll(collapseNavbar)
     $(document).ready(collapseNavbar)
-
+    
     function initialNavigateIf () {
       var url = window.location.href
       var m = url.match(/.*\/(\S+)$/)
       var id = null;
-
+      
       if ( m && m[1] ) {
         id = m[1];
       }
-
+      
       if ( id && document.getElementById(id) ) {
         var els = document.getElementsByClassName("post")
         for ( var index = 0; index < els.length; index++ ) {
@@ -85,7 +85,7 @@ var lib = (function () {
       }
     }
 
-    setTimeout(initialNavigateIf, 1200)
+    setTimeout(initialNavigateIf, 1500)
 
     showLatestPost()
 
