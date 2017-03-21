@@ -1,6 +1,21 @@
 
-Need about
+Need about  Done
 
-Need links to individual posts
+Need links to individual posts Done
 
-PT Sans Narrow Bold
+PT Sans Narrow Bold is a neat font
+
+
+Navigation.
+  Visible post is either
+    a) the latest post
+    b) the particular post given by the URL
+
+  In the case of a, there is no next post, only previous
+  posts.
+  So it might make sense for there to simply be an arrow
+  at the bottom that simply exposes the next post,
+  and so on.
+
+Need photography.
+
