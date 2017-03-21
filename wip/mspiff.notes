@@ -1,0 +1,48 @@
+
+Screening Status ->
+
+Green = InSchedule
+Red = Impossible
+Orange - OtherInSchedule
+White/Empty - Unscheduled
+Pinned -- screening is fixed in schedule
+NotPinned -- film always in schedule, screening choice up to scheduler
+
+
+Side Bar: Film Selector
+  This is list of all films.
+  Clicking on an element either selects or delects the film
+  from the current film list
+
+Note: if a screening is green, the other (up to 4 overlapping)
+screenings are red only if that screening's film is impossible.
+An overlapping screening might be orange if its complement is green.
+
+One page:
+  A tiling of day matrices.
+  Each matrix is zoomable.
+  Hovering over a screening gives an info popup.
+
+  Screenings can be pinned or unpinned.
+  Changing pin status does not re-run the scheduler.
+
+  If a screening is clicked
+    a) Click an uncolored screening.
+       It is turned green, and its opposite screening
+       is turned orange.
+       Any screenings of films made 'impossible' by choosing that
+       screening turn red.
+       A screening can be 'pinned', ie., every attempt to make
+       a schedule *must* include that screening.
+       The idea is that eventually the user will arrive at a
+       tableau where all of the screenings they want to see are selected.
+    b) Click an orange screening
+       This turns it green, turns its opposite screening to orange,
+       and re-runs the scheduler.
+       If the opposite screening was pinned, then this one is pinned.
+    c) Click a red screening
+       This turns it green
+
+
+
+
