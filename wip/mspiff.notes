@@ -1,48 +1,96 @@
 
-Screening Status ->
+States ->
 
-Green = InSchedule
-Red = Impossible
-Orange - OtherInSchedule
-White/Empty - Unscheduled
-Pinned -- screening is fixed in schedule
-NotPinned -- film always in schedule, screening choice up to scheduler
+Scheduled (Green)
+  - the screening is in the schedule
+RuledOut (Red)
+  - the user has indicated that they don't want to attend screening
+  - screening is never considered in any schedule
+OtherScheduled (Yellow)
+  - this screening's complement is Scheduled.
+Unscheduled (White)
+  - this screening's film has never been considered by the user.
+Impossible (Greyed)
+  - this screening's film is impossible (ie., both screenings)
+  - or, the screening is in the past.
 
+Pinned -- (filled in circle)
+  - screening is always in schedule, and its complement is never in
+    schedule
 
-Side Bar: Film Selector
-  This is list of all films.
-  Clicking on an element either selects or delects the film
-  from the current film list
+NotPinned
+  - screening choice up to scheduler, so the state may be
+    Scheduled or OtherScheduled.
+
+Operations: +, -, o, ●, x
+ (+|-), (o|●), (x| )
+
+All screenings initially have +, o.
+Clicking o has the effect of clicking + followed by o.
+If either + or o is clicked, x is displayed.
+
+If an unscheduled screening is added (by clicking +):
+  + turns to -
+  x is enabled
+  it is given state Scheduled, and its complement is added.
+
+If 'x' is clicked:
+  - turns to +
+  - x turns to ' '
+  - all screenings of screening's film are set to Unscheduled.
+
+If a screening is removed (by clicking -):
+  - turns to +
+  o turns to ● in complement
+  it is given state RuledOut, and its complement is Scheduled and pinned.
+  RuledOut screenings are never run through the scheduler.
+
+If a removed screening is re-added (by clicking +)
+  + turns to -
+  x is enabled
+  it is given state Scheduled, and its complement is not touched.
+
+If a screening is pinned:
+  o turns to ●
+  + turns to -
+  it is given state Scheduled, and its complement is ruled out.
+
+If a screening is unpinned:
+  ● turns to o
+  it is given state Scheduled, and its complement is given OtherScheduled
+
+If an impossible screening is added:
+  it is given state Scheduled, and its complement is given OtherScheduled
+
+  Problem: the film is impossible under the current schedule,
+  so the only way it can become possible is for some other screening
+  to be removed, or to filter schedules on that film being possible.
+  More generally stated: how does the user move forward from
+  an impossible state?
+  Going backwards to the last working state?
 
 Note: if a screening is green, the other (up to 4 overlapping)
-screenings are red only if that screening's film is impossible.
+screenings are greyed-out only if that screening's film is impossible.
 An overlapping screening might be orange if its complement is green.
 
 One page:
   A tiling of day matrices.
-  Each matrix is zoomable.
-  Hovering over a screening gives an info popup.
+  Each tile is zoomable.
+  Each entry in the matrix is a screening.
+  Hovering over a screening gives an info popup for the film's screening.
 
-  Screenings can be pinned or unpinned.
-  Changing pin status does not re-run the scheduler.
+  Clicking anything *must* do something --
+    unknown best way to handle case of something being impossible.
 
-  If a screening is clicked
-    a) Click an uncolored screening.
-       It is turned green, and its opposite screening
-       is turned orange.
-       Any screenings of films made 'impossible' by choosing that
-       screening turn red.
-       A screening can be 'pinned', ie., every attempt to make
-       a schedule *must* include that screening.
-       The idea is that eventually the user will arrive at a
-       tableau where all of the screenings they want to see are selected.
-    b) Click an orange screening
-       This turns it green, turns its opposite screening to orange,
-       and re-runs the scheduler.
-       If the opposite screening was pinned, then this one is pinned.
-    c) Click a red screening
-       This turns it green
+  Loop:
+    - Click something
+    - update state
+    - redraw
 
-
-
+On click, updateSchedule.
+updateSchedule ::
+  Catalog ->
+  WholeSchedule ->
+  [MarkedScreening] ->
+  ([MarkedScreening], [Film])
 
