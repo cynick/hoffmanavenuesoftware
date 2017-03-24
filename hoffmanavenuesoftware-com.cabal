@@ -53,7 +53,8 @@ executable mspiff
                   , file-embed
                   , array
                   , monad-loops
-                  , logict
+                  , these
+
   ghc-options: -O2
   default-extensions: OverloadedStrings
                       , FlexibleContexts
