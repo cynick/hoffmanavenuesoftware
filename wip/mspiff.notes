@@ -1,15 +1,19 @@
 
 States ->
 
+Unscheduled (White)
+  - this screening's film has never been considered by the user.
+
 Scheduled (Green)
-  - the screening is in the schedule
+  - the screening is in the current schedule
+
 RuledOut (Red)
   - the user has indicated that they don't want to attend screening
   - screening is never considered in any schedule
+
 OtherScheduled (Yellow)
   - this screening's complement is Scheduled.
-Unscheduled (White)
-  - this screening's film has never been considered by the user.
+
 Impossible (Greyed)
   - this screening's film is impossible (ie., both screenings)
   - or, the screening is in the past.
@@ -20,7 +24,7 @@ Pinned -- (filled in circle)
 
 NotPinned
   - screening choice up to scheduler, so the state may be
-    Scheduled or OtherScheduled.
+    oscillate between Scheduled and OtherScheduled.
 
 Operations: +, -, o, ●, x
  (+|-), (o|●), (x| )
@@ -29,26 +33,42 @@ All screenings initially have +, o.
 Clicking o has the effect of clicking + followed by o.
 If either + or o is clicked, x is displayed.
 
+Idea: hovering over a screening highlights complement screening.
+      Clicking i icon shows info
+
+'Removed', 'Ruled out' => Screening removed from consideration
+'Unscheduled' => Film removed from consideration
+
+Display of controls:
+Unscheduled: + o    -- can't be unscheduled and pinned.
+Scheduled: - o x  or  - ● x
+RuledOut: + o x
+OtherScheduled: - o x
+Impossible: + o x  or  - ● x  or  - o x
+
 If an unscheduled screening is added (by clicking +):
   + turns to -
   x is enabled
-  it is given state Scheduled, and its complement is added.
+  screening is given state Scheduled
+  complement is added and given OtherScheduled
 
 If 'x' is clicked:
   - turns to +
-  - x turns to ' '
-  - all screenings of screening's film are set to Unscheduled.
+  x is disabled
+  all screenings of screening's film are set to Unscheduled.
 
 If a screening is removed (by clicking -):
   - turns to +
   o turns to ● in complement
-  it is given state RuledOut, and its complement is Scheduled and pinned.
-  RuledOut screenings are never run through the scheduler.
+  x is enabled
+  it is given state RuledOut
+  complement is pinned, unless it is already RuledOut
 
 If a removed screening is re-added (by clicking +)
   + turns to -
   x is enabled
-  it is given state Scheduled, and its complement is not touched.
+  it is given state Scheduled
+  complement is unpinned and given OtherScheduled
 
 If a screening is pinned:
   o turns to ●
@@ -71,13 +91,21 @@ If an impossible screening is added:
 
 Note: if a screening is green, the other (up to 4 overlapping)
 screenings are greyed-out only if that screening's film is impossible.
-An overlapping screening might be orange if its complement is green.
+An overlapping screening might be yellow if its complement is green.
+
+Question:
+ If a screening is pinned, can it be in any other state than Scheduled?
+ Yes -- the Impossible state.
 
 One page:
   A tiling of day matrices.
   Each tile is zoomable.
   Each entry in the matrix is a screening.
+
   Hovering over a screening gives an info popup for the film's screening.
+
+  Clicking a screening in an area other than control area highlights
+  that screening's complement, if it exists.
 
   Clicking anything *must* do something --
     unknown best way to handle case of something being impossible.

@@ -3,16 +3,16 @@ import Prelude
 
 import qualified Data.Text as T
 import qualified Data.ByteString.Lazy as BS
-import qualified Data.HashMap.Strict as S
+import qualified Data.Map.Strict as M
 import Data.Aeson hiding (Array)
 import Data.List
 import Data.List.Split
 import Data.Time
 import Data.Time.Clock.POSIX
 import qualified Data.List as DL
-import qualified Control.Monad.Logic as L
 import Data.Maybe
 import Data.Array
+import Data.These
 import Control.Monad
 import System.Environment
 import System.IO.Unsafe
@@ -24,6 +24,7 @@ type Title = T.Text
 type Showtime = Int
 type Duration = Int
 type Screen = T.Text
+
 
 data Film = Film
   { filmId :: FilmId
@@ -82,8 +83,8 @@ instance FromJSON Film where
   parseJSON _ = error "invalid film json"
 
 data ScreeningStatus =
-  Unscheduled | Scheduled | Impossible | OtherScheduled
-  deriving (Enum, Show)
+  Unscheduled | Scheduled | Impossible | RuledOut | OtherScheduled
+  deriving (Enum, Show, Eq)
 
 data Screening = Screening
   { scFilmId :: FilmId
@@ -100,7 +101,11 @@ instance Eq Screening where
   a == b = screeningId a == screeningId b
 
 instance Ord Screening where
-  compare a b = showtime a `compare` showtime b
+  compare a b =
+    case showtime a `compare` showtime b of
+      LT -> LT
+      GT -> GT
+      EQ -> screen a `compare` screen b
 
 instance Arbitrary Screening
   where
@@ -133,6 +138,7 @@ toArray m = unsafePerformIO $ do
   return $ array (0, DL.length l -1) (DL.zip [0..] l)
 
 ws = Schedule (elems screenings)
+
 screenings :: Array Int Screening
 screenings = toArray ((computeDeps . DL.sort) <$> loadScreenings)
   where
@@ -171,18 +177,22 @@ load path = do
         Error s -> error s
     Nothing -> error "Failed to parse"
 
+data Pinned = Pinned | Unpinned deriving (Show,Eq)
 data MarkedScreening = MarkedScreening
   { status :: ScreeningStatus
-  , markedScreening :: Screening
-  , isPinned :: Bool
-  , isRuledOut :: Bool
+  , pinned :: Pinned
+  , screening :: Screening
   }
+  deriving Show
 
 instance Eq MarkedScreening where
-  a == b = markedScreening a == markedScreening b
+  a == b = screening a == screening b
 
-mkMarkedScreening :: Screening -> MarkedScreening
-mkMarkedScreening s = MarkedScreening Unscheduled s False False
+isRuledOut :: MarkedScreening -> Bool
+isRuledOut = (==RuledOut) . status
+
+isPinned :: MarkedScreening -> Bool
+isPinned = (==Pinned) . pinned
 
 newtype Schedule = Schedule { scheduleScreenings :: [Screening] }
   deriving (Eq,Show,Monoid)
@@ -208,52 +218,98 @@ partitionByDay (Schedule s) = fmap Schedule $ reverse $ go s [] []
        then go xs [x] (ys:ret)
        else go xs (x:ys) ret
 
-type ScheduleState = M.Map Film (MarkedScreening,Maybe MarkedScreening)
+type Pair a = These a a
+type ScreeningPair = Pair Screening
+type MarkedScreeningPair = Pair MarkedScreening
+
+mkScreeningPair :: Screening -> Maybe Screening -> ScreeningPair
+mkScreeningPair = go
+  where
+    go a Nothing = This a
+    go a (Just b) =
+      case a `compare` b of
+        LT -> These a b
+        GT -> These b a
+        EQ -> error "attempt to construct screening pair with a single film"
+
+type ScheduleState = M.Map ScreeningPair MarkedScreeningPair
+
+first :: MarkedScreeningPair -> MarkedScreening
+first sp = fromJust (fst <$> justThese sp)
+
+second :: MarkedScreeningPair -> MarkedScreening
+second sp = fromJust (snd <$> justThese sp)
+
+isFirst :: Screening -> ScreeningPair -> Bool
+isFirst s sp = isThese sp && (fst <$> justThese sp) == Just s
+
+isSecond :: Screening -> ScreeningPair -> Bool
+isSecond s sp = isThese sp && (snd <$> justThese sp) == Just s
+
+keyFor :: Screening -> ScreeningPair
+keyFor s = mkScreeningPair s (otherScreening s)
+
+mkMsp ::
+  (t2 -> t1 -> t) ->
+  Screening ->
+  (Screening -> t2) ->
+  (Screening -> t1) -> t
+mkMsp f s ms ms' = f (ms s) (ms' (fromJust (otherScreening s)))
 
 addScreening ::
   Screening ->
   ScheduleState ->
   ScheduleState
-addScreening ws s st =
+addScreening s st =
   let
-    f = filmOf s
-    ms =
-      mkMarkedScreening s
-      { status = Scheduled
-      , isPinned = False
-      , isRuledOut = False
-      }
-    ms' =
-      maybe Nothing (\s' -> mkMarkedScreening s'
-        { status = OtherScheduled
-        , isPinned = False
-        , isRuledOut = False
-        }) (otherScreening s)
-  in M.insert f (ms,ms')
+    k = keyFor s
+    ms = MarkedScreening Scheduled Unpinned
+    ms' = MarkedScreening OtherScheduled Unpinned
+
+    v | isThis k = This (ms s)
+      | isFirst s k = mkMsp These s ms ms'
+      | otherwise = mkMsp (flip These) s ms ms'
+  in M.insert k v st
+
+ruleOutScreening ::
+  Screening ->
+  ScheduleState ->
+  ScheduleState
+ruleOutScreening s st =
+  let
+    k = keyFor s
+    ms = MarkedScreening RuledOut Unpinned
+    ms' = MarkedScreening Scheduled Pinned
+    v | isThis k = This (ms s)
+      | isFirst s k = mkMsp These s ms ms'
+      | otherwise = mkMsp (flip These) s ms ms'
+    -- If the other screening was already ruled out, we leave it that
+    -- way.
+    f old new | isFirst s k && isRuledOut (second old) =
+                  let s' = screening (second old) in These (ms s) (ms s')
+              | isSecond s k && isRuledOut (first old) =
+                  let s' = screening (first old) in These (ms s') (ms s)
+              | otherwise = new
+  in M.insertWith f k v st
+
+removeFilm :: Screening -> ScheduleState -> ScheduleState
+removeFilm = M.delete . keyFor
 
 pinScreening ::
   Screening ->
   ScheduleState ->
   ScheduleState
-pinScreening ws s st =
+pinScreening s st =
   let
-    f = filmOf s
-    ms =
-      mkMarkedScreening s
-      { status = Scheduled
-      , isPinned = True
-      , isRuledOut = False
-      }
-    ms' =
-      maybe Nothing (\s' -> mkMarkedScreening s'
-        { status = OtherScheduled
-        , isPinned = False
-        , isRuledOut = True
-        }) (otherScreening s)
-  in M.insert f (ms,ms')
+    k = keyFor s
+    ms = MarkedScreening Scheduled Pinned
+    ms' = MarkedScreening RuledOut Unpinned
+    v | isThis k = This (ms s)
+      | isFirst s k = mkMsp These s ms ms'
+      | otherwise = mkMsp (flip These) s ms ms'
+  in M.insert k v st
 
-
-
+{-
 updateSchedule ::
   Catalog ->
   WholeSchedule ->
@@ -268,26 +324,27 @@ updateSchedule cat ws mss = ret
     update a m =
       case () of
        markedScreening ms `DL.elem` schedule = ms : a
-       markedScreening ms `DL.notElem` schedule = ms { status 
+       markedScreening ms `DL.notElem` schedule = ms { status
+-}
 
+{-
 viewableScheduleFor ::
   WholeSchedule ->
   [MarkedScreening] ->
   Maybe ViewableSchedule
-viewableScheduleFor ws mss = listToMaybe schedules
+viewableScheduleFor ws mss = Schedule <$> (listToMaybe schedules)
   where
     schedules = filter (not . null) . filter disjoint . sequence $ lists
     screeningListFor ms lists =
       let
-        screening = markedScreening ms
-        status = screeningStatus ms
+        screening' = screening ms
         list = [screening]
-        ret | isPinned ms = list
-            | isRuledOut ms = []
-            | otherwise = maybe list (:list) (otherScreening screening)
+        ret | pinned ms == Pinned = list
+            | otherwise = maybe list (:list) (otherScreening screening')
       in ret : lists
 
     lists = foldr screeningListFor [] mss
+-}
 
 viewableSchedulesFor :: WholeSchedule -> [Film] -> [ViewableSchedule]
 viewableSchedulesFor ws fs =
