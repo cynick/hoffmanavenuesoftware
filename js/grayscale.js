@@ -92,6 +92,6 @@ var lib = (function () {
   }
 
   return { init : init }
-       })()
+})()
 
 $(document).ready(lib.init)
