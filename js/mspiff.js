@@ -1,7 +1,6 @@
 var Mspiff = (function () {
 
   function renderDay(day) {
-    console.log( "RENDER DAY " + day)
     var data = document.getElementById("day-data-" + day)
     var venueCount = data.getAttribute("data-venue-count")
     var startDate = data.getAttribute("data-start-date")
@@ -16,8 +15,6 @@ var Mspiff = (function () {
         var screening = screenings[screeningIndex]
         var startDate = new Date(screening.getAttribute( "data-start" ))
         var endDate = new Date(screening.getAttribute( "data-end" ))
-        console.log( "D1: " + startDate )
-        console.log( "D2: " + endDate )
         var item = { id: screening.getAttribute("id")
                      , start: startDate
                      , end: endDate
