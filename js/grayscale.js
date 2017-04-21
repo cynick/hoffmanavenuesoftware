@@ -64,16 +64,16 @@ var lib = (function () {
     document.onkeydown = maybeNavigate
     $(window).scroll(collapseNavbar)
     $(document).ready(collapseNavbar)
-    
+
     function initialNavigateIf () {
       var url = window.location.href
       var m = url.match(/.*\/(\S+)$/)
       var id = null;
-      
+
       if ( m && m[1] ) {
         id = m[1];
       }
-      
+
       if ( id && document.getElementById(id) ) {
         var els = document.getElementsByClassName("post")
         for ( var index = 0; index < els.length; index++ ) {
