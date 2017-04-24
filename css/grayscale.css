@@ -145,6 +145,7 @@ a:focus {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
+@media screen and (min-width: 768px) {
 .intro {
   display: table;
   width: 100%;
@@ -158,6 +159,24 @@ a:focus {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+}
+}
+
+@media screen and (max-width: 768px) {
+.intro {
+  display: table;
+  width: 100%;
+  height: auto;
+  padding: 100px 0;
+  text-align: center;
+  color: white;
+  background: url(../images/intro-bg-small.jpg) no-repeat bottom center scroll;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
 }
 .intro .intro-body {
   display: table-cell;
