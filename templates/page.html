@@ -93,17 +93,35 @@
 
   <!-- Blog Section -->
   <section id="blog" class="container content-section text-left">
-    $if(posts)$
-    $for(posts)$
-    $body$
-    $endfor$
-    $endif$
+    <div class="row">
+      $if(posts)$
+      $for(posts)$
+      $body$
+      $endfor$
+      $endif$
+      <div class="col-md-2 nav">
+        <h4>Navigation</h4>
+        <ul>
+          <li>
+            <h5>
+              <a href="http://local.hoffmanavenuesoftware.com/taming-mspiff">Taming
+                MSPIFF</a>
+            </h5>
+          </li>
+          <li>
+            <h5>
+              <a href="http://local.hoffmanavenuesoftware.com/thinking-functionally">Thinking Functionally</a>
+            </h5>
+          </li>
+        </ul>
+      </div>
+    </div>
   </section>
 
     <!-- About Section -->
   <section id="about" class="container about-section text-center">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2">
+      <div class="col-lg-10">
         <h2>About</h2>
         $if(about)$
           $for(about)$ $body$ $endfor$

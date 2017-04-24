@@ -206,7 +206,7 @@ createIndex =
         context =
           mconcat
           [ constField "title" siteTitle
-          , listField "posts" postContext (return posts)
+          , listField "posts" postContext (return (DL.take 1 posts))
           , listField "about" postContext (return about)
           , navContext navUrls
           ]
