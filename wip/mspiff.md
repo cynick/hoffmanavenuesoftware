@@ -2,7 +2,7 @@
 author: cynick
 date: 2013-12-10 09:48:35+00:00
 layout: post
-link: http://local.hoffmanavenuesoftware.com/taming-mspiff
+link: http://hoffmanavenuesoftware.com/taming-mspiff
 slug: taming-mspiff
 title: Taming the Minneapolis/St. Paul International Film Festival
 ---

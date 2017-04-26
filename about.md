@@ -2,7 +2,7 @@
 author: cynick
 date: 2017-03-16 09:48:35+00:00
 layout: post
-link: http://local.hoffmanavenuesoftware.com/about
+link: http://hoffmanavenuesoftware.com/about
 slug: about
 title: About
 ---

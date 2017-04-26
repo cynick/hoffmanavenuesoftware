@@ -20,7 +20,7 @@ siteTitle :: IsString a => a
 siteTitle = "Hoffman Avenue Software"
 
 siteBase :: IsString a => a
-siteBase = "http://local.hoffmanavenuesoftware.com"
+siteBase = "http://hoffmanavenuesoftware.com"
 
 markdownPosts :: IsString a => a
 markdownPosts = "posts/*.md"

@@ -2,7 +2,7 @@
 author: cynick
 date: 2013-12-10 09:48:35+00:00
 layout: post
-link: http://local.hoffmanavenuesoftware.com/thinking-functionally
+link: http://hoffmanavenuesoftware.com/thinking-functionally
 slug: thinking-functionally
 title: Thinking Functionally
 ---
