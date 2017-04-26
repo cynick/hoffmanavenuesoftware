@@ -41,7 +41,7 @@ var lib = (function () {
     post.show()
     $('html, body').stop().animate({
       scrollTop: post.offset().top - 75
-    }, 1500, 'easeInOutExpo')
+    }, 0, 'easeInOutExpo')
   }
 
   function maybeNavigate(e) {
@@ -85,9 +85,7 @@ var lib = (function () {
       }
     }
 
-    setTimeout(initialNavigateIf, 1500)
-
-    showLatestPost()
+    initialNavigateIf()
 
   }
 

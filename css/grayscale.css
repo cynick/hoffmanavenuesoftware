@@ -349,6 +349,13 @@ body {
     float: right;
 }
 
+@media screen and (max-width: 768px) {
+ .nav {
+     float: left;
+     width: 100%;
+ }
+}
+
 .post {
     float: left;
 }
