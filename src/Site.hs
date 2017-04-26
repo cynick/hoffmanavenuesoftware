@@ -83,6 +83,7 @@ compileAssetsFor pat compiler = match pat $ route idRoute >> compile compiler
 
 compileAssets :: Rules ()
 compileAssets = do
+  compileAssetsFor "resume.pdf" copyFileCompiler
   compileAssetsFor "images/*" copyFileCompiler
   compileAssetsFor "fonts/*" copyFileCompiler
   compileAssetsFor "js/*" copyFileCompiler
