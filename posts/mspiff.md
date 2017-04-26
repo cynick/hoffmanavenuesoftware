@@ -244,22 +244,23 @@ process list acc = [combine x y | x <- list, y <- acc]
 In the above expression, <code>x :: a</code>, and <code>y :: [a]</code>,
 so the combine function needs to have type <code>a -> [a] -> [a]</code>.
 
-One of the strengths of Haskell is that its type system allows one
-to reason about the possible *inhabitants* of a type (ie., for a function type,
-*implementations* of that function), and sometimes there are so few
-inhabitants that only one really makes sense for what you're trying to do.
+Now, one of the strengths of Haskell is that its type system gives us the
+ability to reason about the possible *inhabitants* of a type
+(ie., for a function type, *implementations* of that function),
+and sometimes there are so few inhabitants that only one really
+makes sense for what you're trying to do.
 
 Since combine is a polymorphic pure function,
 it lacks the type information needed to construct any new instances
-of <code>a</code>, so all we can do is manipulate the arguments
-we are given.<br>
+of <code>a</code>, so combine can *only* manipulate the arguments
+it's given.<br>
 We clearly want to use both arguments.<br>
 Ie., we could return [] or just a list containing the first argument,
-or half of the elements of second argument,
+or half of the elements of the second argument,
 but that would be discarding information when we're trying to
 build information.<br>
-We could also imagine using some combination of repeat, cycle, and
-take to create new lists of a with the given arguments, but that would
+We could also imagine using some combination of repeat, take, and
+cycle to create new lists of a with the given arguments, but that would
 be adding *superfluous* information.
 
 It really seems like the only thing that makes sense is to add
