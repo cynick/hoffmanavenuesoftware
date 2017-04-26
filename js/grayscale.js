@@ -34,7 +34,6 @@ var lib = (function () {
   var postIndex = 0
 
   function navigate (index) {
-    console.log( "NAV")
     postIndex = index
     $(".post").hide()
     var post = $(".post").eq(postIndex)
@@ -60,7 +59,6 @@ var lib = (function () {
   }
 
   function init() {
-    console.log( "INIT" )
     document.onkeydown = maybeNavigate
     $(window).scroll(collapseNavbar)
     $(document).ready(collapseNavbar)
