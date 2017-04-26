@@ -45,23 +45,15 @@ loadAllWithPat pat ver = recentFirst =<< loadAll pat'
 renderedPosts :: Compiler [Item String]
 renderedPosts = loadAllWithPat markdownPosts (Just "post")
 
-renderedPostPaths :: Compiler [FilePath]
-renderedPostPaths = fmap (fmap (toFilePath . itemIdentifier)) renderedPosts
-
-postNavToUrl :: MonadMetadata m => String -> m String
-postNavToUrl = absRouteForPostIdent . fromFilePath
-
-navToUrl :: String -> String
-navToUrl = (siteBase <>)
-
-absRouteForPostIdent :: MonadMetadata m => Identifier -> m FilePath
-absRouteForPostIdent ident = (navToUrl . routeFromMetadata) <$> getMetadata ident
+renderedNavs :: Compiler [Item String]
+renderedNavs = loadAllWithPat markdownPosts (Just "nav")
 
 routeFromMetadata :: Metadata -> String
 routeFromMetadata md = toStr $ fromJust (M.lookup "slug" md)
   where
     toStr (A.String s) = T.unpack s
     toStr _ = error "Expected slug to be a String value"
+
 
 postRoute :: Routes
 postRoute = metadataRoute (customRoute . const . routeFromMetadata)
@@ -83,65 +75,6 @@ archiveRow = "templates/archive-row.html"
 
 applyPageTemplate :: Context a -> Item a -> Compiler (Item String)
 applyPageTemplate = applyTemplate pageTemplate
-
-{--
- Given an element, and a list, return a tuple containing
- the element's left and right neighbors.
---}
-findAdj :: (Show a, Eq a) => a -> [a] -> (Maybe a, Maybe a)
-findAdj x xs | x `elem` xs = r
-             | otherwise = err
-  where
-    err = error $ "Expected " ++ show x ++ " to be a member of " ++ show xs
-    xs' = Just <$> xs
-    p = Nothing : Nothing : xs'
-    n = xs' ++ [Just (head xs)]
-    Just r = lookup x (zip xs (drop 1 (zip p n)))
-
-adjOf :: (Show a, Eq a) => a -> [a] -> (Maybe a, Maybe a)
-adjOf a xs | a `elem` xs = go xs
-           | otherwise = err
-  where
-    go [] = (Nothing,Nothing)
-    go [_] = (Nothing,Nothing)
-    go [x,y] | x == a = (Nothing, Just y)
-                | y == a = (Just x, Nothing)
-                | otherwise = (Nothing, Nothing)
-    go xs'@(x:y:z:_) | x == a = (Nothing, Just y)
-                  | y == a = (Just x, Just z)
-                  | otherwise = go (tail xs')
-
-    err = error $ "Expected " ++ show a ++ " to be a member of " ++ show xs
-
-type Navigation = (Maybe String, Maybe String)
-
-navUrlsFor ::
-  MonadMetadata m =>
-  Identifier
-  -> m [String]
-  -> (String -> m String) -- function to convert identifiers into URLs
-  -> m Navigation
-navUrlsFor ident items convertToUrl = do
-  paths <- items
-  let
-    path = toFilePath ident
-    toRet a =
-      case a of
-        Just a' -> Just <$> (convertToUrl a')
-        _ -> return Nothing
-
-    (a,b) = findAdj path paths
-  a' <- toRet a
-  b' <- toRet b
-  return (a',b')
-
-navContext :: Navigation -> Context String
-navContext u = uncurry go u <> postContext
-  where
-    go (Just p) (Just n) = constField "prev" p <> constField "next" n
-    go Nothing (Just n) = constField "next" n
-    go (Just p) Nothing = constField "prev" p
-    go Nothing Nothing = mempty
 
 compileAssetsFor ::
   (Writable a, Binary a, Typeable a)
@@ -166,8 +99,22 @@ compileStandalone pat = match pat $ do
 compileAbout :: Rules ()
 compileAbout = compileStandalone "about.md"
 
-reorderPosts (x,v) xs = (x,v):b ++ a
-  where [a,b] = DL.splitWhen ((==x). fst) xs
+compileNavs :: Rules ()
+compileNavs = match markdownPosts $ version "nav" $ do
+  compile $ do
+    ident <- getUnderlying
+    metadata <- getMetadata ident
+    let
+
+      toString (A.String s) = T.unpack s
+      toString _ = error "Expected string value"
+      link = fromJust $ M.lookup "link" metadata
+      title = fromJust $ M.lookup "title" metadata
+      context =
+        constField "link" (toString link) <>
+        constField "title" (toString title)
+
+    pandocCompiler >>= applyTemplate "templates/naventry.html" context
 
 compilePosts :: Rules ()
 compilePosts = match markdownPosts $ do
@@ -176,17 +123,16 @@ compilePosts = match markdownPosts $ do
   compile $ do
     ident <- getUnderlying
     let pat = fromString (toFilePath ident)
-    allPosts <- renderedPosts
-    let allPostIdentifiers = DL.takeWhile (/= ' ') <$> (toFilePath . itemIdentifier <$> allPosts)
-    post <- DL.head <$> loadAllWithPat pat (Just "post")
-    let posts' = reorderPosts (toFilePath ident,post) (zip allPostIdentifiers allPosts)
-    navUrls <- navUrlsFor ident renderedPostPaths postNavToUrl
+    allNavs <- renderedNavs
+    posts <- loadAllWithPat pat (Just "post")
     about <- loadAllWithPat "about.md" Nothing
+
     let
       context =
-        listField "posts" postContext (return (snd <$> posts')) <>
+        listField "posts" postContext (return posts) <>
         listField "about" postContext (return about) <>
-        navContext navUrls
+        listField "navs" postContext (return allNavs) <>
+        postContext
 
     pandocCompiler >>= applyPageTemplate context
 
@@ -200,15 +146,16 @@ createIndex =
     compile $ do
       posts <- renderedPosts
       about <- loadAllWithPat "about.md" Nothing
+      allNavs <- renderedNavs
 
-      navUrls <- navUrlsFor (itemIdentifier (head posts)) renderedPostPaths postNavToUrl
       let
         context =
           mconcat
           [ constField "title" siteTitle
           , listField "posts" postContext (return (DL.take 1 posts))
           , listField "about" postContext (return about)
-          , navContext navUrls
+          , listField "navs" postContext (return allNavs)
+          , postContext
           ]
       makeItem "" >>= applyPageTemplate context
 
@@ -226,6 +173,7 @@ site = hakyll $ do
       pandocCompiler
         >>= loadAndApplyTemplate "templates/standalone.html" postContext
 
+  compileNavs
   compileAssets
   compilePosts
 
