@@ -40,7 +40,7 @@ var lib = (function () {
     post.show()
     $('html, body').stop().animate({
       scrollTop: post.offset().top - 75
-    }, 0, 'easeInOutExpo')
+    }, 1500, 'easeInOutExpo')
   }
 
   function maybeNavigate(e) {
