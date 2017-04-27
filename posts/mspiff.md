@@ -20,7 +20,7 @@ MSPIFF typically has films running on five or more screens at the same time,
 meaning that a superfan has to make some choices.
 
 The interesting twist is that most films usually have at least two
-screenings, and this leads to enormous number of ways to consume the festival.
+screenings, and this leads to an enormous number of ways to consume the festival.
 To obtain the number of possible ways to see each film, we multiply
 the numbers of screenings per film together.<br>
 For example, in 2017 there are roughly 200 films and more than 400
@@ -42,7 +42,7 @@ One or more of the films I do *not* choose
 might still be interesting to me, so, for those films, I have to
 look up the *other* time they may be showing, and then for each of
 those screenings, look at what films are showing at the same time,
-and therfore I would miss, and figure out what other times *those*
+and therefore would be missed, and figure out what other times *those*
 films are screening.<br>
 And so on.
 
